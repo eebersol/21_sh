@@ -25,32 +25,32 @@ _SRC			= 21sh.c \
 					builtin_env/ft_env_set.c  \
 					builtin_env/ft_env_get.c \
 					builtin_env/ft_env_unset.c \
-					error/ft_error.c \
-					prompt/ft_read_prompt.c \
-					editline/ft_term_init.c \
 					editline/ft_is_carac.c \
 					editline/ft_is_control.c \
 					editline/ft_move_cursor.c \
 					editline/ft_add_char.c \
 					editline/ft_delete_char.c \
 					editline/ft_history.c \
-					editline/ft_reset_prompt.c \
 					editline/ft_check_quote.c \
 					editline/ft_display_quote.c \
 					editline/ft_shift_key.c \
 					editline/ft_home_end.c \
 					editline/ft_cntrl_d.c \
 					utils/ft_lstlen.c \
+					utils/ft_get_path.c \
 					utils/ft_cut_title.c \
 					utils/ft_tputs.c \
 					utils/ft_list_show.c \
 					utils/ft_free_node.c \
 					utils/ft_list_to_string.c \
-					utils/ft_clean_prompt.c \
-					utils/ft_get_path.c \
-					utils/ft_history_to_lchar.c \
-					init/ft_init_prompt.c \
-					init/ft_init_quote.c 
+					utils/ft_string_to_lchar.c \
+					init/ft_init_quote.c  \
+					init/ft_term_init.c \
+					error/ft_error.c \
+					prompt/ft_read_prompt.c \
+					prompt/ft_clean_prompt.c \
+					prompt/ft_reset_prompt.c \
+					prompt/ft_init_prompt.c \
 
 INCLUDES		= -I./libft/includes/ -I./includes/
 
