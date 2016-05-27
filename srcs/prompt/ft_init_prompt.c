@@ -33,8 +33,9 @@ void	ft_init_prompt(void)
 		sh->prompt->index_history = 0;
 		sh->prompt->history_len = 0;
 	}
+	sh->prompt->l_copy = NULL;
 	sh->prompt->x = 0;
-	sh->prompt->y = 0;
+	sh->prompt->y = 1;
 	sh->prompt->index = 0;
 	sh->prompt->l_char = NULL;
 	sh->prompt->lenght = 0;
@@ -46,5 +47,11 @@ void	ft_init_prompt(void)
 	sh->prompt->complet_prompt = ft_strnew(1);
 	sh->prompt->first_move_word = 0;
 	sh->prompt->index_d = 0;
+	sh->prompt->count = 0;
+	sh->prompt->max_li = 0;
+	sh->prompt->copy_mode = 0;
+	sh->prompt->str_cpy = ft_strnew(1);
+	sh->prompt->x_copy = 0;
+	sh->prompt->cut_len = 0;
 	first_time = 1;
 }

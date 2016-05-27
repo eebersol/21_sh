@@ -84,7 +84,7 @@ void	ft_add_to_history(char *str)
 
 	sh = ft_sh();
 	prompt = sh->prompt;
-	new = ft_lstnew(str, sizeof(char *) * ft_strlen(str));
+	new = ft_lstnew(str, sizeof(char) * ft_strlen(str)); // char *
 	ft_lstadd_at(&prompt->history, new, prompt->index_history);
 	prompt->index_history++;
 }

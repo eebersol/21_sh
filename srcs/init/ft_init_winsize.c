@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_control.c                                    :+:      :+:    :+:   */
+/*   ft_init_winsize.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eebersol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,25 +12,12 @@
 
 #include <21sh.h>
 
-void	ft_is_control(char *b)
+void	ft_init_winsize(void)
 {
-	t_sh	*sh;
-	t_prompt *prompt;
+	t_sh *sh;
 
 	sh = ft_sh();
-	prompt = sh->prompt;
-	if (ALT_UP)
-		ft_alt_up();
-	else if (ALT_BOT)
-		ft_alt_down();
-	else if (IS_ARROW)
-		ft_move_cursor(b);
-	else if (CNTRL_D)
-		ft_cntrl_d();
-	else if (DELETE)
-		ft_delete_char();
-	else if (HOME)
-		ft_go_home();
-	else if (END)
-		ft_go_end();
+	sh->window.col = 0;
+	sh->window.li = 0;
+	sh->window.win_count = 0;
 }

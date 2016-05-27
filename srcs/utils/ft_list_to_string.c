@@ -23,7 +23,7 @@ char 	*ft_list_to_string(void)
 	cur = prompt->l_char;
 	while (cur)
 	{
-		prompt->complet_prompt = ft_strdup(ft_freejoin(prompt->complet_prompt, (char*)cur->content));
+		prompt->complet_prompt = ft_freejoin(prompt->complet_prompt, (char*)cur->content); // !!!
 		cur = cur->next;
 	}
 	return (prompt->complet_prompt);

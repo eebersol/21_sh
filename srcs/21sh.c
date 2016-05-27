@@ -24,12 +24,14 @@ int		shell(t_sh *sh)
 	t_prompt *prompt;
 
 	ft_putstr("$>");
+	ft_init_winsize();
 	while (42)
 	{
 		ft_term_init(sh);
 		ft_init_prompt();
 		sh = ft_sh();
 		prompt = sh->prompt;
+		ft_get_col_li();
 		ft_read_prompt();
 		ft_lstdel(&prompt->l_char, &ft_free_node);
 		if (prompt->complet_prompt)

@@ -27,8 +27,10 @@ char	*ft_read_prompt(void)
 		prompt->lenght = ft_lstlen(prompt->l_char);
 		if (SHIFT_L || SHIFT_R)
 			ft_move_word(b);
-		else if (IS_ARROW || CNTRL || DELETE || HOME || END)
-			ft_is_control(b);
+		else if (SHIFT_C || SHIFT_V || SHIFT_X)
+			ft_copy_paste_cut(b);
+		else if (IS_ARROW || CNTRL || DELETE || HOME || END || ALT_UP || ALT_BOT)
+				ft_is_control(b);
 		else if (ENTER)
 		{
 			ft_history();

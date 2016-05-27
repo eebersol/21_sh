@@ -35,7 +35,10 @@ _SRC			= 21sh.c \
 					editline/ft_display_quote.c \
 					editline/ft_shift_key.c \
 					editline/ft_home_end.c \
+					editline/ft_alt_up_bot.c \
 					editline/ft_cntrl_d.c \
+					editline/ft_multi_line.c \
+					editline/ft_copy_paste.c \
 					utils/ft_lstlen.c \
 					utils/ft_get_path.c \
 					utils/ft_cut_title.c \
@@ -46,11 +49,13 @@ _SRC			= 21sh.c \
 					utils/ft_string_to_lchar.c \
 					init/ft_init_quote.c  \
 					init/ft_term_init.c \
+					init/ft_init_winsize.c \
 					error/ft_error.c \
 					prompt/ft_read_prompt.c \
-					prompt/ft_clean_prompt.c \
+					utils/ft_clean_prompt.c \
 					prompt/ft_reset_prompt.c \
 					prompt/ft_init_prompt.c \
+					window_size/ft_get_col_li.c
 
 INCLUDES		= -I./libft/includes/ -I./includes/
 

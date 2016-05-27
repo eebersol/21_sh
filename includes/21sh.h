@@ -46,9 +46,15 @@
 # define DELETE ((b[0] == 127 && b[1] == 0 && b[2] == 0))
 # define SHIFT_R (b[0] == 27 && b[1] == 91 && b[2] == 49 && b[5] == 67)
 # define SHIFT_L (b[0] == 27 && b[1] == 91 && b[2] == 49 && b[5] == 68)
+# define SHIFT_C (b[0] == 67 && b[1] == 0 && b[2] == 0)
+# define SHIFT_V (b[0] == 86 && b[1] == 0 && b[2] == 0)
+# define SHIFT_X (b[0] == 88 && b[1] == 0 && b[2] == 0 && b[3] == 0)
 # define CNTRL_D (b[0] == 4 && b[1] == 0 && b[2] == 0 && b[3] == 0)
+# define ALT_UP (b[0] == 27 && b[1] == 27 && b[2] == 91 && b[3] == 65)
+# define ALT_BOT (b[0] == 27 && b[1] == 27 && b[2] == 91 && b[3] == 66)
 
 typedef struct termios	t_termios;
+typedef struct winsize	t_winsize;
 
 typedef struct  	s_quote
 {
@@ -62,6 +68,14 @@ typedef struct  	s_quote
 	int 			accolade_1;
 	int 			accolade_2;
 } 					t_quote;
+
+typedef struct 		s_window
+{
+	t_winsize		win;
+	int 			col;
+	int 			li;
+	int				win_count;
+}					t_window;
 
 typedef	struct 		s_prompt
 {
@@ -82,6 +96,13 @@ typedef	struct 		s_prompt
 	int 			index_word;
 	char 			*complet_prompt;
 	int 			index_d;
+	int 			count;
+	int 			max_li;
+	int 			copy_mode;
+	int 			cut_len;
+	char 			*str_cpy;
+	int 			x_copy;
+	t_list 			*l_copy;
 }					t_prompt;
 
 typedef struct		s_env
@@ -95,6 +116,7 @@ typedef struct		s_sh
 	t_list			*env;
 	t_termios		term;
 	t_prompt 		*prompt;
+	t_window		window;
 	char			*term_name;
 }					t_sh;
 
@@ -138,11 +160,17 @@ int 	ft_check_simple_quote(t_quote quote, t_prompt *promt);
 int 	ft_check_black_quote(t_quote quote, t_prompt *promt);
 int		ft_check_parenth_quote(t_quote quote, t_prompt *prompt);
 void	ft_cntrl_d(void);
-
+void	ft_alt_up(void);
+void 	ft_alt_down(void);
 void 	ft_move_word_left(t_prompt *prompt);
 void	ft_move_word_right(t_prompt *prompt);
 void	ft_move_word(char *b);
-
+int		ft_jump_line(void);
+void	ft_copy(void);
+void	ft_copy_paste_cut(char *b);
+void	ft_paste(void);
+void	ft_copying(void);
+ void 	ft_cuting(void);
 void 	ft_go_home(void);
 void 	ft_go_end(void);
 
@@ -166,8 +194,10 @@ t_sh	*ft_sh(void);
 void	ft_init_prompt(void);
 void	ft_init_sh(void);
 t_quote	ft_init_quote(void);
+void	ft_init_winsize(void);
 
-
+// WINSIZE
+void	ft_get_col_li(void);
 
 
 

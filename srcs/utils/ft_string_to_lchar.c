@@ -24,7 +24,6 @@ void	ft_history_to_lchar(char *str)
 	prompt = sh->prompt;
 	i = 0;
 	j = 0;
-	prompt->index = 0;
 	while ((size_t)i < ft_strlen(str))
 	{
 		dst = ft_strnew(1);
@@ -34,4 +33,5 @@ void	ft_history_to_lchar(char *str)
 		ft_strdel(&dst);
 		i++;
 	}
+	str[i] = '\0';
 }

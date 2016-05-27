@@ -43,7 +43,6 @@ void	ft_list_show(t_list *list)
 	{
 		c = *((char *)cur->content);
 		ft_putchar(c);
-		//printf("%s", cur->content);
 		cur = cur->next;
 	}
 }
