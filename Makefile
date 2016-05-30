@@ -55,7 +55,8 @@ _SRC			= 21sh.c \
 					utils/ft_clean_prompt.c \
 					prompt/ft_reset_prompt.c \
 					prompt/ft_init_prompt.c \
-					window_size/ft_get_col_li.c
+					window_size/ft_get_col_li.c \
+					window_size/ft_resize_window.c 
 
 INCLUDES		= -I./libft/includes/ -I./includes/
 

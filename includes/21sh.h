@@ -198,6 +198,7 @@ void	ft_init_winsize(void);
 
 // WINSIZE
 void	ft_get_col_li(void);
+void	ft_resize_window(void);
 
 
 
