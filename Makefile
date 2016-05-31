@@ -25,6 +25,10 @@ _SRC			= 21sh.c \
 					builtin_env/ft_env_set.c  \
 					builtin_env/ft_env_get.c \
 					builtin_env/ft_env_unset.c \
+					builtin_env/ft_env_opt.c  \
+					builtin_env/ft_env_show.c  \
+					builtin_env/ft_env_del.c \
+					builtin_env/ft_seek_wrong_opt.c  \
 					editline/ft_is_carac.c \
 					editline/ft_is_control.c \
 					editline/ft_move_cursor.c \
@@ -47,16 +51,27 @@ _SRC			= 21sh.c \
 					utils/ft_free_node.c \
 					utils/ft_list_to_string.c \
 					utils/ft_string_to_lchar.c \
+					utils/ft_cut_withspace.c  \
 					init/ft_init_quote.c  \
 					init/ft_term_init.c \
 					init/ft_init_winsize.c \
 					error/ft_error.c \
+					error/ft_error_cd.c \
+					error/ft_error_env.c \
+					error/ft_error_exit.c \
+					error/ft_error_set_unset_env.c \
+					builtin_exit/ft_exit.c \
+					builtin_cd/ft_cd.c \
 					prompt/ft_read_prompt.c \
 					utils/ft_clean_prompt.c \
 					prompt/ft_reset_prompt.c \
 					prompt/ft_init_prompt.c \
 					window_size/ft_get_col_li.c \
-					window_size/ft_resize_window.c 
+					window_size/ft_resize_window.c \
+					parser/ft_build_struct.c \
+					parser/ft_exec_parser.c \
+					parser/ft_parser.c \
+
 
 INCLUDES		= -I./libft/includes/ -I./includes/
 

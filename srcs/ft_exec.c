@@ -41,6 +41,7 @@ int		ft_exec(char **cmd, char **env)
 	int		flag;
 
 	flag = 0;
+	//printf("%s\n", cmd[0]);
 	if ((pid = fork()) == 0)
 	{
 		if ((execve(cmd[0], cmd, env)) != -1)

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   21sh.c                                             :+:      :+:    :+:   */
+/*   ft_build_struct.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eebersol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,49 +12,26 @@
 
 #include <21sh.h>
 
-t_sh	*ft_sh(void)
+t_cmd	*ft_build_pipe(char *left, char *right)
 {
-	static t_sh		sh;
+	t_pipe *pipe;
 
-	return (&sh);
+	pipe = (t_pipe*)malloc(sizeof(t_pipe));
+	pipe->type = PIPE;
+	pipe->left = ft_parse_cmd(left);
+	pipe->right = ft_parse_cmd(right);
+	return ((t_cmd*)pipe);
 }
 
-int		shell(t_sh *sh)
+t_cmd	*ft_build_exec(char *str)
 {
-	t_prompt *prompt;
+	t_exec *exec;
+	char **cmd;
 
-	ft_putstr("$>");
-	ft_init_winsize();
-	while (42)
-	{
-		ft_term_init(sh);
-		ft_init_prompt();
-		sh = ft_sh();
-		prompt = sh->prompt;
-		ft_get_col_li();
-		ft_read_prompt();
-		ft_lstdel(&prompt->l_char, &ft_free_node);
-		if (prompt->complet_prompt)
-		{
-			ft_();
-			ft_reset_prompt();
-			ft_strdel(&prompt->complet_prompt);
-		}
-		ft_putstr("$>");
-
-	}
-	
-}
-
-int 	main(int ac, char **av, char **environ)
-{
-	t_sh *sh;
-
-	sh = ft_sh();
-	(void)av;
-	if (ac > 1)
-		ft_error_ac();
-	else
-		ft_launch_env(sh, environ);
-	return (shell(sh));
+	exec = (t_exec*)malloc(sizeof(t_exec));
+	exec->type = EXEC;
+	cmd = ft_word_to_tab(str);
+	exec->cmd = cmd[0];
+	exec->opt = cmd;
+	return ((t_cmd*)exec);
 }

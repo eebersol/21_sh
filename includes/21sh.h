@@ -25,6 +25,7 @@
 # include <curses.h>
 # include <sys/ioctl.h>
 # include <fcntl.h>
+# include "parser.h"
 
 # define RED	"\033[1;31m"
 # define GREEN	"\033[1;32m"
@@ -55,6 +56,7 @@
 
 typedef struct termios	t_termios;
 typedef struct winsize	t_winsize;
+typedef struct s_pipe   t_pipe;
 
 typedef struct  	s_quote
 {
@@ -127,12 +129,21 @@ void	ft_launch_env(t_sh *sh, char **environ);
 void	ft_env_set(t_list **list, char *var, char *value);
 char	*ft_env_get(t_list *list, char *var);
 t_list	*ft_env_unset(t_list **list, char **cmd);
-
+void	ft_env_copy(t_list **new, t_list *list);
+void	ft_env_opt(t_list *list, char **cmd);
+void	ft_env_show(t_list *list);
+char	ft_seek_wrong_opt(char *cmd);
+int		ft_env_del(t_list **list);
 
 
 // ERROR //
 void	ft_error_ac(void);
 void	ft_error_not_found(char *varname);
+void	ft_error_no_directory(char **cmd);
+int		ft_error_cd(char **cmd);
+int		ft_error_env(char **cmd);
+int		ft_error_exit(char **cmd);
+int		ft_error_set_unset_env(char **cmd, char *name);
 
 
 // PROMPT //
@@ -201,7 +212,12 @@ void	ft_get_col_li(void);
 void	ft_resize_window(void);
 
 
+// Builtin_exit
+int		ft_env_del(t_list **list);
+int		ft_exit(char **cmd, t_list **list);
 
+// builtin_cd
+void	ft_cd(t_list *list, char **cmd);
 
 int		ft_exec(char **cmd, char **env);
 void	minishell_exec(t_list *env, char **cmd);

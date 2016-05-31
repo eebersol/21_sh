@@ -23,9 +23,9 @@ void	minishell_exec(t_list *env, char **cmd)
 	sh = ft_sh();
 	prompt = sh->prompt;
 	tab_env = ft_list_to_tab(&env);
-/*	if ((ft_strcmp(cmd[0], "cd")) == 0)
+	if ((ft_strcmp(cmd[0], "cd")) == 0)
 		ft_cd(env, cmd);
-	if ((ft_strcmp(cmd[0], "env")) == 0)
+	else if ((ft_strcmp(cmd[0], "env")) == 0)
 		ft_env_opt(env, cmd);
 	else if ((ft_strcmp(cmd[0], "setenv")) == 0)
 	{
@@ -37,14 +37,13 @@ void	minishell_exec(t_list *env, char **cmd)
 	else if ((ft_strcmp(cmd[0], "exit")) == 0)
 		ft_exit(cmd, &env);
 	else if ((cmd[0][0] == '.' && cmd[0][1] == '/') || cmd[0][0] == '/')
-		ft_exec(cmd, tab_env);*/
-	if (((cmd[0] = ft_get_path(env, cmd[0])) != NULL))
-	{
 		ft_exec(cmd, tab_env);
-	}
+	//else if (((cmd[0] = ft_get_path(env, cmd[0])) != NULL))
+	//{
+	//	ft_exec(cmd, tab_env);
+	//}
 	else if (1)
 	{
-		ft_list_show(prompt->l_char);
-		ft_error_not_found(varname);
+		ft_main_parser();
 	}
 }
