@@ -30,7 +30,7 @@ char	*ft_read_prompt(void)
 		else if (SHIFT_C || SHIFT_V || SHIFT_X)
 			ft_copy_paste_cut(b);
 		else if (IS_ARROW || CNTRL || DELETE || HOME || END || ALT_UP || ALT_BOT)
-				ft_is_control(b);
+			ft_is_control(b);
 		else if (ENTER)
 		{
 			ft_history();

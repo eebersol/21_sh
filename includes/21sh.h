@@ -206,6 +206,7 @@ void	ft_init_prompt(void);
 void	ft_init_sh(void);
 t_quote	ft_init_quote(void);
 void	ft_init_winsize(void);
+void	ft_term_reset(t_sh *sh);
 
 // WINSIZE
 void	ft_get_col_li(void);

@@ -29,3 +29,21 @@ void	ft_term_init(t_sh *sh)
 	if (tcsetattr(0, TCSANOW, &sh->term) == -1)
 		exit(1);
 }
+
+
+void		ft_term_reset(t_sh *sh)
+{
+	char	buff_env[4096];
+
+	//(tgetstr("ve", NULL), 0, tputs_putchar);
+	//tputs(tgetstr("te", NULL), 0, tputs_putchar);
+	if ((sh->term_name = getenv("TERM")) == NULL)
+		return ;
+	if (tgetent(buff_env, sh->term_name) != 1)
+		return ;
+	if (tcgetattr(0, &sh->term) == -1)
+		return ;
+	sh->term.c_lflag = (ICANON | ECHO | ISIG);
+	if (tcsetattr(0, 0, &sh->term) == -1)
+		return ;
+}

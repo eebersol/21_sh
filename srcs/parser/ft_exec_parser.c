@@ -12,6 +12,22 @@
 
 #include <21sh.h>
 
+
+void	ft_exec_redirection(t_cmd *cmd)
+{
+	t_redirection		*rcmd;
+	int					new_fd;
+	int					old_fd;
+
+	rcmd = (t_redirection*)cmd;
+	new_fd = open(rcmd->file, rcmd->mode, S_IRUSR | S_IWUSR);
+	old_fd = dup(rcmd->fd);
+	dup2(new_fd, rcmd->fd);
+	close(new_fd);
+	ft_exec_cmd(rcmd->cmd);
+	dup2(old_fd, rcmd->fd);
+}
+
 void	ft_exec_pipe(t_cmd *cmd)
 {
 	t_pipe	*p_cmd;
@@ -43,11 +59,12 @@ void	ft_exec_pipe(t_cmd *cmd)
 
 int		ft_exec_cmd(t_cmd *cmd)
 {
-	t_sh   *sh;
-	t_pipe *pipe;
-	t_exec *exec;
-	char 	**tmp_env;
-	int 	ret;
+	t_sh   			*sh;
+	t_pipe 			*pipe;
+	t_exec 			*exec;
+	t_redirection 	*redirection;
+	char 			**tmp_env;
+	int 			ret;
 
 	sh = ft_sh();
 	ret = 1;
@@ -56,20 +73,22 @@ int		ft_exec_cmd(t_cmd *cmd)
 		pipe = (t_pipe*)cmd;
 		ft_exec_pipe(cmd);
 	}
-/*	else if (cmd->type == REDIRECTION)
+	else if (cmd->type == REDIRECTION)
 	{
-		redirecton = (t_redirection*)cmd;
-		ft_exec_redirection();
-	}*/
+		redirection = (t_redirection*)cmd;
+		ft_exec_redirection(cmd);
+	}
 	else if (cmd->type == EXEC)
 	{
 		exec = (t_exec*)cmd;
 		tmp_env = ft_list_to_tab(&sh->env);
 		if (ft_get_path(sh->env, exec->opt[0]) != NULL)
+		{
 			exec->opt[0] = ft_get_path(sh->env, exec->opt[0]);
+			ft_exec(exec->opt, tmp_env);
+		}
 		else
 			ft_error_not_found(exec->opt[0]);
-		ft_exec(exec->opt, tmp_env);
 	}
 	else
 		ret = 0;

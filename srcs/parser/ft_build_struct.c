@@ -35,3 +35,16 @@ t_cmd	*ft_build_exec(char *str)
 	exec->opt = cmd;
 	return ((t_cmd*)exec);
 }
+
+t_cmd	*ft_build_redirection(char *cmd, char *file, int mode, int fd)
+{
+	t_redirection *redirection;
+
+	redirection = (t_redirection*)malloc(sizeof(t_redirection));
+	redirection->type = REDIRECTION;
+	redirection->cmd = ft_parse_cmd(cmd);
+	redirection->file = file;
+	redirection->mode = mode;
+	redirection->fd = fd;
+	return ((t_cmd*)redirection);
+}

@@ -29,6 +29,11 @@
 # define WHITESPACES " \t\r\n\v"
 # define TOKEN "<|>"
 # define MAXARGS 10
+# define M_WRITE_TRUNC (O_WRONLY | O_NONBLOCK | O_CREAT | O_TRUNC)
+# define M_WRITE_APPEND (O_WRONLY | O_NONBLOCK | O_CREAT | O_APPEND)
+# define M_READ_TRUNC (O_RDONLY | O_NONBLOCK | O_CREAT | O_TRUNC)
+# define M_READ_APPEND (O_RDONLY | O_NONBLOCK | O_CREAT | O_APPEND)
+# define M_READ (O_RDONLY | O_NONBLOCK | O_CREAT)
 
 enum	e_type
 {
@@ -68,19 +73,29 @@ typedef	struct			s_pipe
 	t_cmd				*right;
 }						t_pipe;
 
+typedef struct 			s_heredoc
+{
+	t_type 				type;
+	t_cmd				*cmds;
+	int					fd;
+}						t_heredoc;
+
 /////////Parser////////////
 
 // ft_build_struct.c
 t_cmd	*ft_build_pipe(char *left, char *right);
 t_cmd	*ft_build_exec(char *str);
+t_cmd	*ft_build_redirection(char *cmd, char *file, int mode, int fd);
 
 // ft_exec_parser.c
 void	ft_exec_pipe(t_cmd *cmd);
 int		ft_exec_cmd(t_cmd *cmd);
+void	ft_exec_redirectiont(t_cmd *cmd);
 
 // ft_parser.c
 void	ft_main_parser(void);
 t_cmd	*ft_parse_cmd(char *str);
+char  *ft_get_opt(char *str);
 
 char	*ft_cut_withspace(char *str);
 char	*ft_right_body(char *str);

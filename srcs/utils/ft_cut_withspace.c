@@ -18,7 +18,7 @@ char	*ft_cut_withspace(char *str)
 	int		i;
 
 	i = 0;
-	while (str[i] && str[i] != '|')
+	while (str[i] && str[i] != '|' && str[i] != '<' && str[i] != '>')
 		i++;
 	new_str = ft_strsub(str, 0, i);
 	new_str = ft_strtrim(new_str);
