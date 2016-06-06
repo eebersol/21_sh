@@ -33,7 +33,6 @@ void	ft_(void)
 	}
 }
 
-
 int		ft_exec(char **cmd, char **env)
 {
 	pid_t	pid;

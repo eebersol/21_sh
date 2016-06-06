@@ -16,20 +16,26 @@ void		manage_double_read(t_cmd *cmd, t_sh *sh, char *str)
 	int		p[2];
 	pid_t	pid;
 	int		status;
-	t_sh *sh;
+	t_pipe	*p_cmd;
+
 
 	sh = ft_sh();
+	p_cmd = (t_pipe*)cmd;
 	if (pipe(p) == 0)
 	{
 		pid = fork();
 		if (pid == 0)
+		{
+			dup2(p[1], 1);
+			close(p[0]);
 			parse_heredoc_redir(str);
+		}
 		else
 		{
 			dup2(p[0], 0);
 			close(p[1]);
 			waitpid(-1, &status, 0);
-			ft_exec(, sh->env)
+			ft_exec_cmd(p_cmd->left, sh->env)
 		}
 	}
 	else

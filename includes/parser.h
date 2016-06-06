@@ -41,6 +41,7 @@ enum	e_type
 	EXEC,
 	PIPE,
 	REDIRECTION,
+	HEREDOC,
 };
 
 typedef enum e_type		t_type;
@@ -73,11 +74,11 @@ typedef	struct			s_pipe
 	t_cmd				*right;
 }						t_pipe;
 
-typedef struct 			s_heredoc
+typedef	struct			s_heredoc
 {
-	t_type 				type;
-	t_cmd				*cmds;
-	int					fd;
+	t_type				type;
+	t_cmd				*left;
+	char				*right;
 }						t_heredoc;
 
 /////////Parser////////////
@@ -86,16 +87,20 @@ typedef struct 			s_heredoc
 t_cmd	*ft_build_pipe(char *left, char *right);
 t_cmd	*ft_build_exec(char *str);
 t_cmd	*ft_build_redirection(char *cmd, char *file, int mode, int fd);
+t_cmd	*ft_build_heredoc(char *left, char *right);
+
 
 // ft_exec_parser.c
 void	ft_exec_pipe(t_cmd *cmd);
 int		ft_exec_cmd(t_cmd *cmd);
 void	ft_exec_redirectiont(t_cmd *cmd);
+void	ft_exec_heredoc(t_cmd *cmd);
+void	ft_print_stdout(t_heredoc *p_cmd);
 
 // ft_parser.c
 void	ft_main_parser(void);
 t_cmd	*ft_parse_cmd(char *str);
-char  *ft_get_opt(char *str);
+int		parse_heredoc_redir(char *str);
 
 char	*ft_cut_withspace(char *str);
 char	*ft_right_body(char *str);

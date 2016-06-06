@@ -12,33 +12,6 @@
 
 #include <21sh.h>
 
-static int	parse_heredoc_redir(char *target)
-{
-	t_sh 	*sh;
-	int		pipe_fd[2];
-	char	*line;
-
-	sh = ft_sh();
-	pipe_fd[0] = 0;
-	pipe(pipe_fd);
-	line = "";
-	ft_term_reset(sh);
-	while (ft_strcmp(line, target))
-	{
-		ft_putstr("heredoc>> ");
-		if (get_next_line(0, &line) < 1)
-			break ;
-		if (line && ft_strcmp(line, target))
-		{
-			write(pipe_fd[1], line, ft_strlen(line));
-			write(pipe_fd[1], "\n", 1);
-			free(line);
-		}
-	}
-	close(pipe_fd[1]);
-	return (0);
-}
-
 static int	ft_check_redir(char *str)
 {
 	int i;
@@ -48,23 +21,66 @@ static int	ft_check_redir(char *str)
 	j = 0;
 	while (j < i)
 	{
-		if (str[j] == '>' && str[j + 1] == '>')
+		if (str[j] == '>' && str[j + 1] == '>' && str[j - 1] != '2')
 			return (1);
 		else if (str[j] == '<' && str[j + 1] == '<')
 			return (2);
+		else if (str[j] == '>' && str[j + 1] != '>' && str[j - 1] == '2')
+			return (3);
+		else if (str[j] == '>' && str[j + 1] == '>' && str[j - 1] == '2')
+			return (4);
+		else if (str[j] == '1' && str[j + 1] == '>' && str[j + 2] == '&' && str[j + 3] == '2')
+			return (5);
 		j++;
 	}
 	return (0);
 }
 
+char  *ft_get_opt(char *str)
+{
+	char 		*b;
+	static char *opt;
+	char 		*tmp;
+	char 		*salut;
+	char 		*content;
+
+	content = NULL;
+	tmp = NULL;
+	b = ft_strnew(1);
+	ft_putstr("heredoc> ");
+	while (read (0, b, 1))
+	{
+		ft_putchar(b[0]);	
+		content = ft_strdup(ft_freejoin(content, b));
+		if (ENTER)
+		{
+			content = ft_strtrim(content);
+			if (ft_strcmp(content, str) == 0)
+			{
+				tmp = ft_strdup(opt);
+				return (tmp);
+			}
+			else
+			{
+				opt = ft_strdup(ft_freejoin(opt, content));
+				opt = ft_strdup(ft_freejoin(opt, ","));
+				ft_get_opt(str);
+			}
+			salut = ft_strdup(opt);
+			return (salut);
+		}
+	}
+	return (" ");
+}
+
 t_cmd	*ft_parse_cmd(char *str)
 {
-	char 				*begin_cmd;
-	char				*second_cmd;
-	char 				*p_str;
-	//char 				*test;
-	int 				i;
-	int					j;
+	char 	*begin_cmd;
+	char	*second_cmd;
+	char 	*p_str;
+	char 	*test;
+	int 	i;
+	int		j;
 
 	i = 0;
 	j = ft_strlen(str);
@@ -75,9 +91,7 @@ t_cmd	*ft_parse_cmd(char *str)
 		i++;
 	if ((ft_strsub(str, (i + 1), ((i - j) * - 1))) != NULL)
 		second_cmd = ft_right_body(ft_strsub(str, (i + 1), ((i - j) * - 1)));
-	if (ft_strchr(str, '|'))
-		return (ft_build_pipe(begin_cmd, second_cmd));
-	else if ((*p_str = ft_strchr(str, '>') != NULL) && ft_check_redir(str) == 0)
+	if ((*p_str = ft_strchr(str, '>') != NULL) && ft_check_redir(str) == 0)
 	{
 		second_cmd = ft_cut_withspace(second_cmd);
 		return (ft_build_redirection(begin_cmd, second_cmd, M_WRITE_TRUNC, 1));
@@ -97,23 +111,39 @@ t_cmd	*ft_parse_cmd(char *str)
 	{
 		second_cmd = ft_strsub(second_cmd, 1, ft_strlen(second_cmd) - 1);
 		second_cmd = ft_cut_withspace(second_cmd);
-		parse_heredoc_redir(second_cmd);
-		//test = ft_get_opt(second_cmd);
-		//begin_cmd = ft_strjoin(begin_cmd, " ");
-		//test = ft_strdup(ft_strjoin(begin_cmd, test));
-		//printf("tt %s\n", test);
-		return (ft_build_redirection(begin_cmd, NULL, M_READ_APPEND, 0));
+		test = ft_get_opt(second_cmd);
+		return (ft_build_heredoc(begin_cmd, test));
 	}
+	else if (ft_check_redir(str) == 3)
+	{
+		second_cmd = ft_cut_withspace(second_cmd);
+		begin_cmd = ft_strsub(begin_cmd, 0, ft_strlen(begin_cmd) - 1);
+		return (ft_build_redirection(begin_cmd, second_cmd, M_WRITE_TRUNC, 2));
+	}
+	else if (ft_check_redir(str) == 4)
+	{
+		second_cmd = ft_strsub(second_cmd, 1, ft_strlen(second_cmd) - 1);
+		second_cmd = ft_cut_withspace(second_cmd);
+		begin_cmd = ft_strsub(begin_cmd, 0, ft_strlen(begin_cmd) - 1);
+		return (ft_build_redirection(begin_cmd, second_cmd, M_WRITE_APPEND, 2));
+	}
+	else if (ft_check_redir(str) == 5)
+	{
+		begin_cmd = ft_strsub(begin_cmd, 0, ft_strlen(begin_cmd) - 1);
+		return (ft_build_redirection(begin_cmd, NULL, M_READ, 0));
+	}
+	else if (ft_strchr(str, '|'))
+		return (ft_build_pipe(begin_cmd, second_cmd));
 	else
 		return (ft_build_exec(begin_cmd));
 }
 
 void	ft_main_parser(void)
 {	
-	t_sh *sh;
-	t_cmd *cmd;
+	t_sh 			*sh;
+	t_cmd 			*cmd;
 	static	int 	i = 0;
-	char 	**split;
+	char 			**split;
 
 	sh = ft_sh();
 	split = ft_strsplit(sh->prompt->complet_prompt, ';');

@@ -12,6 +12,17 @@
 
 #include <21sh.h>
 
+t_cmd	*ft_build_heredoc(char *left, char *right)
+{
+	t_heredoc *heredoc;
+
+	heredoc = (t_heredoc*)malloc(sizeof(t_heredoc));
+	heredoc->type = HEREDOC;
+	heredoc->left = ft_parse_cmd(left);
+	heredoc->right = right;
+	return ((t_cmd*)heredoc);
+}
+
 t_cmd	*ft_build_pipe(char *left, char *right)
 {
 	t_pipe *pipe;

@@ -25,6 +25,7 @@ int		shell(t_sh *sh)
 
 	ft_putstr("$>");
 	ft_init_winsize();
+	ft_check_signal();
 	while (42)
 	{
 		ft_term_init(sh);
@@ -41,9 +42,7 @@ int		shell(t_sh *sh)
 		//	ft_strdel(&prompt->complet_prompt);
 		}
 		ft_putstr("$>");
-
 	}
-	
 }
 
 int 	main(int ac, char **av, char **environ)

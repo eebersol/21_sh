@@ -197,6 +197,7 @@ void	ft_clean_prompt(void);
 void 	ft_clean_history(char *str);
 char	*ft_get_path(t_list *list, char *b);
 void 	ft_history_to_lchar(char *str);
+void	ft_check_signal(void);
 
 // MAIN //
 t_sh	*ft_sh(void);
