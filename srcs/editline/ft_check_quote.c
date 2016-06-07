@@ -12,8 +12,7 @@
 
 #include <21sh.h>
 
-
-int 	ft_check_number_quote(t_quote quote, t_prompt *prompt)
+int		ft_check_number_quote(t_quote quote, t_prompt *prompt)
 {
 	if (ft_check_double_quote(quote, prompt) == 1)
 		return (1);
@@ -27,13 +26,13 @@ int 	ft_check_number_quote(t_quote quote, t_prompt *prompt)
 		return (0);
 }
 
-int 	ft_check_quote(void)
+int		ft_check_quote(void)
 {
-	t_sh	*sh;
-	t_prompt 	*prompt;
-	t_list 		*cur;
+	t_sh		*sh;
+	t_prompt	*prompt;
+	t_list		*cur;
 	t_quote		quote;
-	char 		c;
+	char		c;
 
 	sh = ft_sh();
 	prompt = sh->prompt;
@@ -44,7 +43,7 @@ int 	ft_check_quote(void)
 		c = *((char *)cur->content);
 		if (c == '"')
 			quote.double_quote++;
-		else if	(c == '\'')
+		else if (c == '\'')
 			quote.simple_quote++;
 		else if (c == '`')
 			quote.black_quote++;

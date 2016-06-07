@@ -12,7 +12,7 @@
 
 #include <21sh.h>
 
-int	ft_check_double_quote(t_quote quote, t_prompt *prompt)
+int		ft_check_double_quote(t_quote quote, t_prompt *prompt)
 {
 	prompt->quote_value += quote.double_quote;
 	if (prompt->quote_value % 2 != 0)
@@ -25,7 +25,7 @@ int	ft_check_double_quote(t_quote quote, t_prompt *prompt)
 	return (0);
 }
 
-int 	ft_check_simple_quote(t_quote quote, t_prompt *prompt)
+int		ft_check_simple_quote(t_quote quote, t_prompt *prompt)
 {
 	prompt->quote_value += quote.simple_quote;
 	if (prompt->quote_value % 2 != 0)
@@ -38,7 +38,7 @@ int 	ft_check_simple_quote(t_quote quote, t_prompt *prompt)
 	return (0);
 }
 
-int 	ft_check_black_quote(t_quote quote, t_prompt *prompt)
+int		ft_check_black_quote(t_quote quote, t_prompt *prompt)
 {
 	prompt->quote_value += quote.black_quote;
 	if (prompt->quote_value % 2 != 0)
@@ -51,7 +51,7 @@ int 	ft_check_black_quote(t_quote quote, t_prompt *prompt)
 	return (0);
 }
 
-int	ft_check_parenth_quote(t_quote quote, t_prompt *prompt)
+int		ft_check_parenth_quote(t_quote quote, t_prompt *prompt)
 {
 	prompt->quote_value_parenth += quote.parenth_1;
 	prompt->quote_value_parenth -= quote.parenth_2;

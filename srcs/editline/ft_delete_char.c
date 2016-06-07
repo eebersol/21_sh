@@ -14,8 +14,8 @@
 
 void	ft_delete_char(void)
 {
-	t_sh *sh;
-	t_prompt *prompt;
+	t_sh		*sh;
+	t_prompt	*prompt;
 
 	sh = ft_sh();
 	prompt = sh->prompt;

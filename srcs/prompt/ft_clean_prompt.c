@@ -14,8 +14,8 @@
 
 void	ft_clean_prompt(void)
 {
-	t_sh *sh;
-	t_prompt *prompt;
+	t_sh		*sh;
+	t_prompt	*prompt;
 
 	sh = ft_sh();
 	prompt = sh->prompt;
@@ -26,11 +26,12 @@ void	ft_clean_prompt(void)
 		ft_delete_char();
 }
 
-void 	ft_clean_history(char *str)
+void	ft_clean_history(char *str)
 {
 	int i;
+
 	i = ft_strlen(str);
-	while(i > 0)
+	while (i > 0)
 	{
 		tputs(tgoto((tgetstr("le", NULL)), 0, 0), 0, tputs_putchar);
 		tputs(tgoto((tgetstr("dc", NULL)), 0, 0), 0, tputs_putchar);

@@ -14,7 +14,7 @@
 
 int		ft_jump_line(void)
 {
-	t_sh 		*sh;
+	t_sh		*sh;
 	t_prompt	*prompt;
 	t_window	window;
 

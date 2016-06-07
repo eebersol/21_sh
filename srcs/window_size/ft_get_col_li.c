@@ -14,8 +14,8 @@
 
 void	ft_get_col_li(void)
 {
-	t_sh *sh;
-	t_window 	*window;
+	t_sh		*sh;
+	t_window	*window;
 
 	sh = ft_sh();
 	window = &sh->window;
@@ -30,4 +30,3 @@ void	ft_get_col_li(void)
 		window->li = window->win.ws_row;
 	}
 }
-

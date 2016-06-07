@@ -14,9 +14,9 @@
 
 void	ft_add_char(char *b)
 {
-	t_sh	*sh;
-	t_prompt *prompt;
-	t_list 	*new_char;
+	t_sh		*sh;
+	t_prompt	*prompt;
+	t_list		*new_char;
 
 	sh = ft_sh();
 	prompt = sh->prompt;

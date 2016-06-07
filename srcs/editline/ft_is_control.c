@@ -14,8 +14,8 @@
 
 void	ft_is_control(char *b)
 {
-	t_sh	*sh;
-	t_prompt *prompt;
+	t_sh		*sh;
+	t_prompt	*prompt;
 
 	sh = ft_sh();
 	prompt = sh->prompt;

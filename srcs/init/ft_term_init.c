@@ -39,8 +39,7 @@ void	ft_term_init(t_sh *sh)
 		exit(1);
 }
 
-
-void		ft_term_reset(t_sh *sh)
+void	ft_term_reset(t_sh *sh)
 {
 	char	buff_env[4096];
 

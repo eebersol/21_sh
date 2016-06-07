@@ -21,8 +21,8 @@ void	ft_init_sh(void)
 
 void	ft_init_prompt(void)
 {
-	t_sh *sh;
-	static int first_time;
+	t_sh		*sh;
+	static int	first_time;
 
 	sh = ft_sh();
 	if (first_time == 0)

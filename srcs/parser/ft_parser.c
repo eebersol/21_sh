@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parser .c                                       :+:      :+:    :+:   */
+/*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eebersol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -29,28 +29,29 @@ static int	ft_check_redir(char *str)
 			return (3);
 		else if (str[j] == '>' && str[j + 1] == '>' && str[j - 1] == '2')
 			return (4);
-		else if (str[j] == '1' && str[j + 1] == '>' && str[j + 2] == '&' && str[j + 3] == '2')
+		else if (str[j] == '1' && str[j + 1] == '>' && str[j + 2] == '&'
+			&& str[j + 3] == '2')
 			return (5);
 		j++;
 	}
 	return (0);
 }
 
-char  *ft_get_opt(char *str)
+char		*ft_get_opt(char *str)
 {
-	char 		*b;
-	static char *opt;
-	char 		*tmp;
-	char 		*salut;
-	char 		*content;
+	char		*b;
+	static char	*opt;
+	char		*tmp;
+	char		*salut;
+	char		*content;
 
 	content = NULL;
 	tmp = NULL;
 	b = ft_strnew(1);
 	ft_putstr("heredoc> ");
-	while (read (0, b, 1))
+	while (read(0, b, 1))
 	{
-		ft_putchar(b[0]);	
+		ft_putchar(b[0]);
 		content = ft_strdup(ft_freejoin(content, b));
 		if (ENTER)
 		{
@@ -73,13 +74,13 @@ char  *ft_get_opt(char *str)
 	return (" ");
 }
 
-t_cmd	*ft_parse_cmd(char *str)
+t_cmd		*ft_parse_cmd(char *str)
 {
-	char 	*begin_cmd;
+	char	*begin_cmd;
 	char	*second_cmd;
-	char 	*p_str;
-	char 	*test;
-	int 	i;
+	char	*p_str;
+	char	*test;
+	int		i;
 	int		j;
 
 	i = 0;
@@ -89,8 +90,8 @@ t_cmd	*ft_parse_cmd(char *str)
 	begin_cmd = ft_cut_withspace(str);
 	while (i < j && str[i] != '|' && str[i] != '<' && str[i] != '>')
 		i++;
-	if ((ft_strsub(str, (i + 1), ((i - j) * - 1))) != NULL)
-		second_cmd = ft_right_body(ft_strsub(str, (i + 1), ((i - j) * - 1)));
+	if ((ft_strsub(str, (i + 1), ((i - j) * -1))) != NULL)
+		second_cmd = ft_right_body(ft_strsub(str, (i + 1), ((i - j) * -1)));
 	if ((*p_str = ft_strchr(str, '>') != NULL) && ft_check_redir(str) == 0)
 	{
 		second_cmd = ft_cut_withspace(second_cmd);
@@ -139,11 +140,11 @@ t_cmd	*ft_parse_cmd(char *str)
 }
 
 void	ft_main_parser(void)
-{	
-	t_sh 			*sh;
-	t_cmd 			*cmd;
-	static	int 	i = 0;
-	char 			**split;
+{
+	t_sh			*sh;
+	t_cmd			*cmd;
+	static	int		i = 0;
+	char			**split;
 
 	sh = ft_sh();
 	split = ft_strsplit(sh->prompt->complet_prompt, ';');

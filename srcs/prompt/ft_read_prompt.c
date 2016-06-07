@@ -14,9 +14,9 @@
 
 char	*ft_read_prompt(void)
 {
-	t_sh *sh;
-	t_prompt *prompt;
-	char b[7];
+	t_sh		*sh;
+	t_prompt	*prompt;
+	char		b[7];
 
 	sh = ft_sh();
 	prompt = sh->prompt;
@@ -29,7 +29,8 @@ char	*ft_read_prompt(void)
 			ft_move_word(b);
 		else if (SHIFT_C || SHIFT_V || SHIFT_X)
 			ft_copy_paste_cut(b);
-		else if (IS_ARROW || CNTRL || DELETE || HOME || END || ALT_UP || ALT_BOT)
+		else if (IS_ARROW || CNTRL || DELETE || HOME || END
+			|| ALT_UP || ALT_BOT)
 			ft_is_control(b);
 		else if (ENTER)
 		{

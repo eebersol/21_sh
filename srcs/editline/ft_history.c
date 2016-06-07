@@ -14,9 +14,9 @@
 
 void	ft_move_top(void)
 {
-	t_sh *sh;
-	t_prompt *prompt;
-	t_list 	*list;
+	t_sh		*sh;
+	t_prompt	*prompt;
+	t_list		*list;
 
 	sh = ft_sh();
 	prompt = sh->prompt;
@@ -50,9 +50,9 @@ void	ft_move_top(void)
 
 void	ft_move_bot(void)
 {
-	t_sh *sh;
-	t_prompt *prompt;
-	t_list	*cur;
+	t_sh		*sh;
+	t_prompt	*prompt;
+	t_list		*cur;
 
 	sh = ft_sh();
 	prompt = sh->prompt;
@@ -78,9 +78,9 @@ void	ft_move_bot(void)
 
 void	ft_add_to_history(char *str)
 {
-	t_sh *sh;;
-	t_prompt *prompt;
-	t_list 	*new;
+	t_sh		*sh;
+	t_prompt	*prompt;
+	t_list		*new;
 
 	sh = ft_sh();
 	prompt = sh->prompt;

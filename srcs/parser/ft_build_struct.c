@@ -36,8 +36,8 @@ t_cmd	*ft_build_pipe(char *left, char *right)
 
 t_cmd	*ft_build_exec(char *str)
 {
-	t_exec *exec;
-	char **cmd;
+	t_exec	*exec;
+	char	**cmd;
 
 	exec = (t_exec*)malloc(sizeof(t_exec));
 	exec->type = EXEC;

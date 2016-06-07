@@ -12,7 +12,7 @@
 
 #include <21sh.h>
 
-void		ft_print_stdout(t_heredoc *p_cmd)
+void	ft_print_stdout(t_heredoc *p_cmd)
 {
 	char	**cat_tab;
 
@@ -25,7 +25,7 @@ void		ft_print_stdout(t_heredoc *p_cmd)
 	exit(0);
 }
 
-void		ft_exec_heredoc(t_cmd *cmd)
+void	ft_exec_heredoc(t_cmd *cmd)
 {
 	t_heredoc	*p_cmd;
 	int			p[2];
@@ -102,13 +102,13 @@ void	ft_exec_pipe(t_cmd *cmd)
 
 int		ft_exec_cmd(t_cmd *cmd)
 {
-	t_sh   			*sh;
-	t_pipe 			*pipe;
-	t_exec 			*exec;
-	t_redirection 	*redirection;
+	t_sh			*sh;
+	t_pipe			*pipe;
+	t_exec			*exec;
+	t_redirection	*redirection;
 	t_heredoc		*heredoc;
-	char 			**tmp_env;
-	int 			ret;
+	char			**tmp_env;
+	int				ret;
 
 	sh = ft_sh();
 	ret = 1;
