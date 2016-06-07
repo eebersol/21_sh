@@ -38,14 +38,14 @@ int		shell(t_sh *sh)
 		if (prompt->complet_prompt)
 		{
 			ft_();
-		//	ft_reset_prompt();
-		//	ft_strdel(&prompt->complet_prompt);
+		//ft_reset_prompt();
+		//ft_strdel(&prompt->complet_prompt);
 		}
 		ft_putstr("$>");
 	}
 }
 
-int 	main(int ac, char **av, char **environ)
+int		main(int ac, char **av, char **environ)
 {
 	t_sh *sh;
 

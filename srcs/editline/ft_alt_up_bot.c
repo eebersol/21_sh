@@ -75,6 +75,7 @@ void		ft_alt_up(void)
 	sh->prompt->index = sh->prompt->x;
 }
 
+
 void		ft_alt_down(void)
 {
 	t_sh		*sh;
