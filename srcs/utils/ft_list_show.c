@@ -15,8 +15,8 @@
 void	ft_list_shower(t_list *list, t_prompt *prompt)
 {
 	t_list	*cur;
-	char c;
-	int i;
+	char	c;
+	int		i;
 
 	i = 0;
 	cur = list;
@@ -35,7 +35,7 @@ void	ft_list_shower(t_list *list, t_prompt *prompt)
 
 void	ft_list_show(t_list *list)
 {
-	char c;
+	char	c;
 	t_list	*cur;
 
 	cur = list;

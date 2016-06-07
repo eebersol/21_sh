@@ -12,6 +12,15 @@
 
 #include <21sh.h>
 
+static	void	ft_unique_init_prompt(t_sh *sh)
+{
+	sh->prompt = (t_prompt*)malloc(sizeof(t_prompt));
+	sh->prompt->history = NULL;
+	sh->prompt->history_len = 0;
+	sh->prompt->index_history = 0;
+	sh->prompt->history_len = 0;
+}
+
 void	ft_init_sh(void)
 {
 	t_sh *sh;
@@ -19,20 +28,14 @@ void	ft_init_sh(void)
 	sh = ft_sh();
 }
 
-void	ft_init_prompt(void)
+void			ft_init_prompt(void)
 {
-	t_sh *sh;
-	static int first_time;
+	t_sh		*sh;
+	static int	first_time;
 
 	sh = ft_sh();
 	if (first_time == 0)
-	{
-		sh->prompt = (t_prompt*)malloc(sizeof(t_prompt));
-		sh->prompt->history = NULL;
-		sh->prompt->history_len = 0;
-		sh->prompt->index_history = 0;
-		sh->prompt->history_len = 0;
-	}
+		ft_unique_init_prompt(sh);
 	sh->prompt->l_copy = NULL;
 	sh->prompt->x = 0;
 	sh->prompt->y = 1;

@@ -16,7 +16,7 @@ NAME			= 21sh
 
 LIB				=	./libft/libft.a
 
-_SRC			= 21sh.c \
+_SRC			= twenty_one_sh.c \
 					ft_exec.c \
 					ft_minishell_exec.c \
 					builtin_env/ft_list_to_tab.c \

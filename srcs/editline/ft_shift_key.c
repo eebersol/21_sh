@@ -12,7 +12,7 @@
 
 #include <21sh.h>
 
-void 	ft_move_word_left(t_prompt *prompt)
+void	ft_move_word_left(t_prompt *prompt)
 {
 	if (prompt->first_move_word == 0)
 	{
@@ -22,7 +22,7 @@ void 	ft_move_word_left(t_prompt *prompt)
 	}
 	else if (prompt->complet_prompt[prompt->x - 1] == ' ')
 		ft_arrow_left();
-	while (prompt->complet_prompt[prompt->x - 1] != ' ' && prompt->x >0)
+	while (prompt->complet_prompt[prompt->x - 1] != ' ' && prompt->x > 0)
 		ft_arrow_left();
 }
 
@@ -36,7 +36,8 @@ void	ft_move_word_right(t_prompt *prompt)
 	}
 	else if (prompt->complet_prompt[prompt->x + 1] == ' ')
 		ft_arrow_right();
-	while (prompt->complet_prompt[prompt->x] != ' ' && prompt->x >= 0 && prompt->x < ft_lstlen(prompt->l_char))
+	while (prompt->complet_prompt[prompt->x] != ' ' &&
+		prompt->x >= 0 && prompt->x < ft_lstlen(prompt->l_char))
 		ft_arrow_right();
 	if (prompt->complet_prompt[prompt->x] == ' ')
 		ft_arrow_right();
@@ -44,13 +45,13 @@ void	ft_move_word_right(t_prompt *prompt)
 
 void	ft_move_word(char *b)
 {
-	t_sh	*sh;
-	t_prompt 	*prompt;
+	t_sh		*sh;
+	t_prompt	*prompt;
 
 	sh = ft_sh();
 	prompt = sh->prompt;
-	if (SHIFT_L)
+	if (S_L)
 		ft_move_word_left(prompt);
-	else if (SHIFT_R)
+	else if (S_R)
 		ft_move_word_right(prompt);
 }

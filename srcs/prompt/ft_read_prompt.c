@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_read_prompt.c                                   :+:      :+:    :+:   */
+/*   ft_read_sh->prompt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eebersol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,38 +12,36 @@
 
 #include <21sh.h>
 
+
+static void	ft_launch_cmd(t_sh *sh)
+{
+	ft_lstdel(&sh->prompt->l_char, &ft_free_node);
+//	ft_bzero(b, 7);
+	sh->prompt->x = 0;
+	sh->prompt->index = 0;
+	ft_read_prompt();
+}
+
 char	*ft_read_prompt(void)
 {
-	t_sh *sh;
-	t_prompt *prompt;
-	char b[7];
+	t_sh		*sh;
+	char		b[7];
 
 	sh = ft_sh();
-	prompt = sh->prompt;
 	ft_bzero(b, 7);
-	while (read (0, b, 7))
+	while (read(0, b, 7))
 	{
-		//printf("b[0] = %d b[1] = %d b[2] = %d b[3] = %d b[4] = %d b[5] = %d\n", b[0], b[1], b[2], b[3], b[4], b[5]);
-		prompt->lenght = ft_lstlen(prompt->l_char);
-		if (SHIFT_L || SHIFT_R)
-			ft_move_word(b);
-		else if (SHIFT_C || SHIFT_V || SHIFT_X)
-			ft_copy_paste_cut(b);
-		else if (IS_ARROW || CNTRL || DELETE || HOME || END || ALT_UP || ALT_BOT)
+		sh->prompt->lenght = ft_lstlen(sh->prompt->l_char);
+		if (IS_ARROW || CNTRL || DELETE || HOME || END || ALT_UP
+			|| ALT_BOT || S_C || S_V || S_X || S_L || S_R)
 			ft_is_control(b);
 		else if (ENTER)
 		{
 			ft_history();
-			if (ft_check_quote() == 1)
-			{
-				ft_lstdel(&prompt->l_char, &ft_free_node);
-				ft_bzero(b, 7);
-				prompt->x = 0;
-				prompt->index = 0;
-				ft_read_prompt();
-			}
+			if (ft_check_quote(sh) == 1)
+				ft_launch_cmd(sh);
 			ft_putchar('\n');
-			return (0);
+			return(0);
 		}
 		else
 			ft_is_carac(b);

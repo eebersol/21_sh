@@ -12,10 +12,12 @@
 
 #include <21sh.h>
 
-void		ft_print_stdout(t_heredoc *p_cmd)
+static void		ft_print_stdout(t_heredoc *p_cmd, int *p)
 {
 	char	**cat_tab;
 
+	dup2(p[1], 1);
+	close(p[0]);
 	cat_tab = ft_strsplit(p_cmd->right, ',');
 	while (*cat_tab)
 	{
@@ -25,7 +27,7 @@ void		ft_print_stdout(t_heredoc *p_cmd)
 	exit(0);
 }
 
-void		ft_exec_heredoc(t_cmd *cmd)
+void			ft_exec_heredoc(t_cmd *cmd)
 {
 	t_heredoc	*p_cmd;
 	int			p[2];
@@ -35,11 +37,7 @@ void		ft_exec_heredoc(t_cmd *cmd)
 	if (pipe(p) == 0)
 	{
 		if ((pid[0] = fork()) == 0)
-		{
-			dup2(p[1], 1);
-			close(p[0]);
-			ft_print_stdout(p_cmd);
-		}
+			ft_print_stdout(p_cmd, p);
 		else if ((pid[1] = fork()) == 0)
 		{
 			dup2(p[0], 0);
@@ -56,7 +54,7 @@ void		ft_exec_heredoc(t_cmd *cmd)
 		exit(2);
 }
 
-void	ft_exec_redirection(t_cmd *cmd)
+void			ft_exec_redirection(t_cmd *cmd)
 {
 	t_redirection		*rcmd;
 	int					new_fd;
@@ -71,7 +69,7 @@ void	ft_exec_redirection(t_cmd *cmd)
 	dup2(old_fd, rcmd->fd);
 }
 
-void	ft_exec_pipe(t_cmd *cmd)
+void			ft_exec_pipe(t_cmd *cmd)
 {
 	t_pipe	*p_cmd;
 	int		pipes[2];
@@ -100,15 +98,15 @@ void	ft_exec_pipe(t_cmd *cmd)
 	waitpid(-1, 0, 0);
 }
 
-int		ft_exec_cmd(t_cmd *cmd)
+void			ft_exec_cmd(t_cmd *cmd)
 {
-	t_sh   			*sh;
-	t_pipe 			*pipe;
-	t_exec 			*exec;
-	t_redirection 	*redirection;
+	t_sh			*sh;
+	t_pipe			*pipe;
+	t_exec			*exec;
+	t_redirection	*redirection;
 	t_heredoc		*heredoc;
-	char 			**tmp_env;
-	int 			ret;
+	char			**tmp_env;
+	int				ret;
 
 	sh = ft_sh();
 	ret = 1;
@@ -139,7 +137,5 @@ int		ft_exec_cmd(t_cmd *cmd)
 		heredoc = (t_heredoc*)cmd;
 		ft_exec_heredoc(cmd);
 	}
-	else
-		ret = 0;
-	return (ret);
+	return ;
 }

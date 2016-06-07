@@ -14,9 +14,9 @@
 
 void	ft_cntrl_d(void)
 {
-	t_sh *sh;
-	t_prompt *prompt;
-	int 	i;
+	t_sh		*sh;
+	t_prompt	*prompt;
+	int			i;
 
 	sh = ft_sh();
 	prompt = sh->prompt;
@@ -25,7 +25,8 @@ void	ft_cntrl_d(void)
 	prompt->complet_prompt = ft_list_to_string();
 	if (prompt->index_d > prompt->x)
 	{
-		prompt->complet_prompt = ft_strsub(prompt->complet_prompt, 0, prompt->index_d);
+		prompt->complet_prompt = ft_strsub(prompt->complet_prompt,
+			0, prompt->index_d);
 		tputs(tgoto((tgetstr("sc", NULL)), 0, 0), 0, tputs_putchar);
 		ft_clean_prompt();
 		ft_history_to_lchar(prompt->complet_prompt);

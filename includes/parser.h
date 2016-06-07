@@ -92,10 +92,9 @@ t_cmd	*ft_build_heredoc(char *left, char *right);
 
 // ft_exec_parser.c
 void	ft_exec_pipe(t_cmd *cmd);
-int		ft_exec_cmd(t_cmd *cmd);
+void		ft_exec_cmd(t_cmd *cmd);
 void	ft_exec_redirectiont(t_cmd *cmd);
 void	ft_exec_heredoc(t_cmd *cmd);
-void	ft_print_stdout(t_heredoc *p_cmd);
 
 // ft_parser.c
 void	ft_main_parser(void);

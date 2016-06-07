@@ -14,11 +14,11 @@
 
 void	ft_(void)
 {
-	t_sh *sh;
-	t_prompt *prompt;
-	char **db_tab;
-	char **cmd;
-	int i;
+	t_sh		*sh;
+	t_prompt	*prompt;
+	char		**db_tab;
+	char		**cmd;
+	int			i;
 
 	sh = ft_sh();
 	i = 0;

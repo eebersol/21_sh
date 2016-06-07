@@ -12,10 +12,10 @@
 
 #include <21sh.h>
 
-void 	ft_go_home(void)
+void	ft_go_home(void)
 {
-	t_sh *sh;
-	t_prompt *prompt;
+	t_sh		*sh;
+	t_prompt	*prompt;
 
 	sh = ft_sh();
 	prompt = sh->prompt;
@@ -23,10 +23,10 @@ void 	ft_go_home(void)
 		ft_arrow_left();
 }
 
-void 	ft_go_end(void)
+void	ft_go_end(void)
 {
-	t_sh *sh;
-	t_prompt *prompt;
+	t_sh		*sh;
+	t_prompt	*prompt;
 
 	sh = ft_sh();
 	prompt = sh->prompt;

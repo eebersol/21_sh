@@ -14,10 +14,10 @@
 
 void	minishell_exec(t_list *env, char **cmd)
 {
-	t_sh *sh;
-	t_prompt *prompt;
-	char	*varname;
-	char	**tab_env;
+	t_sh		*sh;
+	t_prompt	*prompt;
+	char		*varname;
+	char		**tab_env;
 
 	varname = cmd[0];
 	sh = ft_sh();
@@ -38,10 +38,6 @@ void	minishell_exec(t_list *env, char **cmd)
 		ft_exit(cmd, &env);
 	else if ((cmd[0][0] == '.' && cmd[0][1] == '/') || cmd[0][0] == '/')
 		ft_exec(cmd, tab_env);
-	//else if (((cmd[0] = ft_get_path(env, cmd[0])) != NULL))
-	//{
-	//	ft_exec(cmd, tab_env);
-	//}
 	else if (1)
 	{
 		ft_main_parser();

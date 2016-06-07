@@ -14,11 +14,11 @@
 
 void	ft_history_to_lchar(char *str)
 {
-	t_sh *sh;
-	t_prompt *prompt;
-	char 		*dst;
-	int i;
-	int j;
+	t_sh		*sh;
+	t_prompt	*prompt;
+	char		*dst;
+	int			i;
+	int			j;
 
 	sh = ft_sh();
 	prompt = sh->prompt;

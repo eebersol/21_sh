@@ -37,3 +37,33 @@ char	*ft_right_body(char *str)
 	new_str = ft_strtrim(new_str);
 	return (new_str);
 }
+
+char	*ft_cut_begin_doubleredir(char *str, char c)
+{
+	char	*new_str;
+	int		i;
+
+	i = 0;
+	while (str[i] != c)
+		i++;
+	new_str = ft_strsub(str, 0, i);
+	new_str = ft_strtrim(new_str);
+	return (new_str);	
+}
+
+char	*ft_cut_second_doubleredir(char *str, char c, int jump)
+{
+	char	*new_str;
+	int		i;
+
+	i = 0;
+	while (str[i] != c)
+		i++;
+	if (c == '|')
+		i += jump;
+	else
+		i += jump;
+	new_str = ft_strsub(str, i, (ft_strlen(str) - i));
+	new_str = ft_strtrim(new_str);
+	return (new_str);	
+}

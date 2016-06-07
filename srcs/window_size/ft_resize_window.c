@@ -12,9 +12,9 @@
 
 #include <21sh.h>
 
-void	ft_resize_window()
+void	ft_resize_window(void)
 {
-	t_sh *sh;
+	t_sh		*sh;
 	t_window	window;
 
 	sh = ft_sh();

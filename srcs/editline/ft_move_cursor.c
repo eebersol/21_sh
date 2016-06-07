@@ -14,8 +14,8 @@
 
 void	ft_arrow_left(void)
 {
-	t_sh *sh;
-	t_prompt *prompt;
+	t_sh		*sh;
+	t_prompt	*prompt;
 
 	sh = ft_sh();
 	prompt = sh->prompt;
@@ -35,9 +35,9 @@ void	ft_arrow_left(void)
 
 void	ft_arrow_right(void)
 {
-	t_sh *sh;
-	t_prompt *prompt;
-	t_window window;
+	t_sh		*sh;
+	t_prompt	*prompt;
+	t_window	window;
 
 	sh = ft_sh();
 	prompt = sh->prompt;
@@ -51,7 +51,7 @@ void	ft_arrow_right(void)
 	else if (ft_jump_line() == 0)
 	{
 		if (prompt->x < (ft_lstlen(prompt->l_char)))
-		{		
+		{
 			prompt->index++;
 			prompt->x++;
 			tputs(tgoto((tgetstr("nd", NULL)), 0, 0), 0, tputs_putchar);
@@ -61,8 +61,8 @@ void	ft_arrow_right(void)
 
 void	ft_move_cursor(char *b)
 {
-	t_sh *sh;
-	t_prompt *prompt;
+	t_sh		*sh;
+	t_prompt	*prompt;
 
 	sh = ft_sh();
 	prompt = sh->prompt;

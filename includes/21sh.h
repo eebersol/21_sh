@@ -45,11 +45,11 @@
 # define CNTRL (b[0] == 4 || b[0] == 3)
 # define BACK_SPACE (b[0] == 127)
 # define DELETE ((b[0] == 127 && b[1] == 0 && b[2] == 0))
-# define SHIFT_R (b[0] == 27 && b[1] == 91 && b[2] == 49 && b[5] == 67)
-# define SHIFT_L (b[0] == 27 && b[1] == 91 && b[2] == 49 && b[5] == 68)
-# define SHIFT_C (b[0] == 67 && b[1] == 0 && b[2] == 0)
-# define SHIFT_V (b[0] == 86 && b[1] == 0 && b[2] == 0)
-# define SHIFT_X (b[0] == 88 && b[1] == 0 && b[2] == 0 && b[3] == 0)
+# define S_R (b[0] == 27 && b[1] == 91 && b[2] == 49 && b[5] == 67)
+# define S_L (b[0] == 27 && b[1] == 91 && b[2] == 49 && b[5] == 68)
+# define S_C (b[0] == 67 && b[1] == 0 && b[2] == 0)
+# define S_V (b[0] == 86 && b[1] == 0 && b[2] == 0)
+# define S_X (b[0] == 88 && b[1] == 0 && b[2] == 0 && b[3] == 0)
 # define CNTRL_D (b[0] == 4 && b[1] == 0 && b[2] == 0 && b[3] == 0)
 # define ALT_UP (b[0] == 27 && b[1] == 27 && b[2] == 91 && b[3] == 65)
 # define ALT_BOT (b[0] == 27 && b[1] == 27 && b[2] == 91 && b[3] == 66)
@@ -164,8 +164,8 @@ void	ft_move_bot(void);
 int		ft_reset_prompt(void);
 void	ft_add_char(char *b);
 			// quote //
-int 	ft_check_quote(void);
-int 	ft_check_number_quote(t_quote quote, t_prompt *prompt);
+int 	ft_check_quote(t_sh *sh);
+int 	ft_check_number_quote(t_sh *sh, t_quote quote);
 int	 	ft_check_double_quote(t_quote quote, t_prompt *prompt);
 int 	ft_check_simple_quote(t_quote quote, t_prompt *promt);
 int 	ft_check_black_quote(t_quote quote, t_prompt *promt);
@@ -198,6 +198,8 @@ void 	ft_clean_history(char *str);
 char	*ft_get_path(t_list *list, char *b);
 void 	ft_history_to_lchar(char *str);
 void	ft_check_signal(void);
+char	*ft_cut_begin_doubleredir(char *str, char c);
+char	*ft_cut_second_doubleredir(char *str, char c, int jump);
 
 // MAIN //
 t_sh	*ft_sh(void);
