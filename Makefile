@@ -49,6 +49,7 @@ _SRC			= twenty_one_sh.c \
 					utils/ft_tputs.c \
 					utils/ft_list_show.c \
 					utils/ft_free_node.c \
+					utils/ft_display_prompt.c \
 					utils/ft_signal.c  \
 					utils/ft_list_to_string.c \
 					utils/ft_string_to_lchar.c \

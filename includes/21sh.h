@@ -201,6 +201,8 @@ void	ft_check_signal(void);
 char	*ft_cut_begin_doubleredir(char *str, char c);
 char	*ft_cut_second_doubleredir(char *str, char c, int jump);
 void	ft_list_show_to(t_list *list);
+void	ft_display_prompt(t_list *env);
+
 
 // MAIN //
 t_sh	*ft_sh(void);

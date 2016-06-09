@@ -27,14 +27,14 @@ void	ft_is_control(char *b)
 		ft_copy_paste_cut(b);
 	else if (S_L || S_R)
 		ft_move_word(b);
+	else if (HOME)
+		ft_go_home();
+	else if (END)
+		ft_go_end();
 	else if (IS_ARROW)
 		ft_move_cursor(b);
 	else if (CNTRL_D)
 		ft_cntrl_d();
 	else if (DELETE)
 		ft_delete_char();
-	else if (HOME)
-		ft_go_home();
-	else if (END)
-		ft_go_end();
 }
