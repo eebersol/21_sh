@@ -22,8 +22,6 @@ void	ft_is_carac(char *b)
 	if (prompt->x == prompt->lenght)
 	{
 		ft_add_char(b);
-	//ft_arrow_right();
-	//tputs(tgoto((tgetstr("le", NULL)), 0, 0), 0, tputs_putchar);
 		prompt->x++;
 		prompt->index++;
 		ft_putchar(b[0]);

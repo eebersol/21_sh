@@ -12,7 +12,17 @@
 
 #include <21sh.h>
 
-void	ft_move_top(void)
+static	void	ft_first_move_top(t_prompt *prompt, t_list *list)
+{
+	prompt->index_history = ft_lstlen(list) - 1;
+	prompt->first_process = 1;
+	ft_clean_prompt();
+	list = ft_lstget_at(list, prompt->index_history);
+	ft_putstr(list->content);
+	ft_history_to_lchar((char*)list->content);
+}
+
+void			ft_move_top(void)
 {
 	t_sh		*sh;
 	t_prompt	*prompt;
@@ -23,14 +33,7 @@ void	ft_move_top(void)
 	list = prompt->history;
 	ft_lstdel(&prompt->l_char, &ft_free_node);
 	if (prompt->first_process == 0)
-	{
-		prompt->index_history = ft_lstlen(list) - 1;
-		prompt->first_process = 1;
-		ft_clean_prompt();
-		list = ft_lstget_at(list, prompt->index_history);
-		ft_putstr((char*)list->content);
-		ft_history_to_lchar(list->content);
-	}
+		ft_first_move_top(prompt, list);
 	else
 	{
 		list = prompt->history;
@@ -40,7 +43,7 @@ void	ft_move_top(void)
 		if (prompt->index_history < 0)
 			prompt->index_history = ft_lstlen(list) - 1;
 		list = prompt->history;
-		list = ft_lstget_at(list, prompt->index_history);
+		list = ft_lstget_at(prompt->history, prompt->index_history);
 		ft_putstr((char*)list->content);
 		ft_history_to_lchar(list->content);
 	}
@@ -48,7 +51,7 @@ void	ft_move_top(void)
 	prompt->index = prompt->x;
 }
 
-void	ft_move_bot(void)
+void			ft_move_bot(void)
 {
 	t_sh		*sh;
 	t_prompt	*prompt;
@@ -76,20 +79,19 @@ void	ft_move_bot(void)
 	}
 }
 
-void	ft_add_to_history(char *str)
+void			ft_add_to_history(char *str)
 {
 	t_sh		*sh;
 	t_prompt	*prompt;
-	t_list		*new;
 
 	sh = ft_sh();
 	prompt = sh->prompt;
-	new = ft_lstnew(str, sizeof(char) * ft_strlen(str)); // char *
-	ft_lstadd_at(&prompt->history, new, prompt->index_history);
+	ft_lstadd_at(&prompt->history,
+		ft_lstnew(str, ft_strlen(str)), prompt->index_history);
 	prompt->index_history++;
 }
 
-void	ft_history(void)
+void			ft_history(void)
 {
 	ft_add_to_history(ft_list_to_string());
 }

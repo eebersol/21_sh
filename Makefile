@@ -72,6 +72,8 @@ _SRC			= twenty_one_sh.c \
 					parser/ft_build_struct.c \
 					parser/ft_exec_parser.c \
 					parser/ft_parser.c \
+					parser/ft_fn_exec.c \
+					parser/ft_parse_redir.c 
 
 
 INCLUDES		= -I./libft/includes/ -I./includes/

@@ -20,6 +20,6 @@ void	ft_add_char(char *b)
 
 	sh = ft_sh();
 	prompt = sh->prompt;
-	new_char = ft_lstnew(b, sizeof(char*));
+	new_char = ft_lstnew(b, (sizeof(char*) * ft_strlen(b)));
 	ft_lstadd_at(&prompt->l_char, new_char, prompt->index);
 }

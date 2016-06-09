@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_clean_prompt.c                                  :+:      :+:    :+:   */
+/*   ft_fn_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eebersol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,38 +12,27 @@
 
 #include <21sh.h>
 
-void	ft_clean_prompt(void)
+void	ft_exec_simple_cmd(t_cmd *cmd)
 {
-	t_sh		*sh;
-	t_prompt	*prompt;
+	t_exec	*exec;
+	char	**tmp_env;
+	t_sh	*sh;
 
 	sh = ft_sh();
-	prompt = sh->prompt;
-	prompt->lenght = ft_lstlen(prompt->l_char);
-	while (prompt->x < prompt->lenght)
+	exec = (t_exec*)cmd;
+	tmp_env = ft_list_to_tab(&sh->env);
+	if (((ft_strcmp(exec->opt[0], "cd")) == 0) ||
+		((ft_strcmp(exec->opt[0], "setenv")) == 0) ||
+			((ft_strcmp(exec->opt[0], "unsetenv")) == 0) ||
+				((ft_strcmp(exec->opt[0], "exit")) == 0) ||
+					((ft_strcmp(exec->opt[0], "env")) == 0) ||
+						((ft_strcmp(exec->opt[0], "./")) == 0))
+		minishell_exec(sh->env, exec->opt);
+	else if (ft_get_path(sh->env, exec->opt[0]) != NULL)
 	{
-		prompt->index++;
-		prompt->x++;
-		tputs(tgoto((tgetstr("nd", NULL)), 0, 0), 0, tputs_putchar);
+		exec->opt[0] = ft_get_path(sh->env, exec->opt[0]);
+		ft_exec(exec->opt, tmp_env);
 	}
-	while (prompt->x > 0)
-	{
-		tputs(tgoto((tgetstr("le", NULL)), 0, 0), 0, tputs_putchar);
-		tputs(tgoto((tgetstr("dc", NULL)), 0, 0), 0, tputs_putchar);
-		prompt->x--;
-		prompt->index = prompt->x;
-	}
-}
-
-void	ft_clean_history(char *str)
-{
-	int i;
-
-	i = ft_strlen(str);
-	while (i > 0)
-	{
-		tputs(tgoto((tgetstr("le", NULL)), 0, 0), 0, tputs_putchar);
-		tputs(tgoto((tgetstr("dc", NULL)), 0, 0), 0, tputs_putchar);
-		i--;
-	}
+	else
+		ft_error_not_found(exec->opt[0]);
 }

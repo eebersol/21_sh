@@ -14,15 +14,13 @@
 
 static void		ft_print_stdout(t_heredoc *p_cmd, int *p)
 {
-	char	**cat_tab;
-
 	dup2(p[1], 1);
 	close(p[0]);
-	cat_tab = ft_strsplit(p_cmd->right, ',');
-	while (*cat_tab)
+	ft_lstrev(&p_cmd->right);
+	while (p_cmd->right)
 	{
-		ft_putendl_fd(*cat_tab, 1);
-		cat_tab++;
+		ft_putendl_fd(p_cmd->right->content, 1);
+		p_cmd->right = p_cmd->right->next;
 	}
 	exit(0);
 }
@@ -102,14 +100,10 @@ void			ft_exec_cmd(t_cmd *cmd)
 {
 	t_sh			*sh;
 	t_pipe			*pipe;
-	t_exec			*exec;
 	t_redirection	*redirection;
 	t_heredoc		*heredoc;
-	char			**tmp_env;
-	int				ret;
 
 	sh = ft_sh();
-	ret = 1;
 	if (cmd->type == PIPE)
 	{
 		pipe = (t_pipe*)cmd;
@@ -121,17 +115,7 @@ void			ft_exec_cmd(t_cmd *cmd)
 		ft_exec_redirection(cmd);
 	}
 	else if (cmd->type == EXEC)
-	{
-		exec = (t_exec*)cmd;
-		tmp_env = ft_list_to_tab(&sh->env);
-		if (ft_get_path(sh->env, exec->opt[0]) != NULL)
-		{
-			exec->opt[0] = ft_get_path(sh->env, exec->opt[0]);
-			ft_exec(exec->opt, tmp_env);
-		}
-		else
-			ft_error_not_found(exec->opt[0]);
-	}
+		ft_exec_simple_cmd(cmd);
 	else if (cmd->type == HEREDOC)
 	{
 		heredoc = (t_heredoc*)cmd;

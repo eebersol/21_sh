@@ -43,8 +43,6 @@ void	ft_term_reset(t_sh *sh)
 {
 	char	buff_env[4096];
 
-	//tputs(tgetstr("ve", NULL), 0, tputs_putchar);
-	//tputs(tgetstr("te", NULL), 0, tputs_putchar);
 	if ((sh->term_name = getenv("TERM")) == NULL)
 		return ;
 	if (tgetent(buff_env, sh->term_name) != 1)

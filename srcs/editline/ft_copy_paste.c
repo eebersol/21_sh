@@ -67,15 +67,13 @@ void	ft_paste(void)
 	t_sh		*sh;
 	t_prompt	*prompt;
 	t_list		*new_char;
-	int			j;
 	char		c;
-	int			i;
+	size_t		i;
 
 	sh = ft_sh();
 	i = 0;
 	prompt = sh->prompt;
-	j = ft_strlen(prompt->str_cpy);
-	while (i < j)
+	while (i < ft_strlen(prompt->str_cpy))
 	{
 		c = prompt->str_cpy[i];
 		new_char = ft_lstnew(&c, sizeof(char*));
@@ -85,14 +83,10 @@ void	ft_paste(void)
 	prompt->x_copy = prompt->x;
 	tputs(tgoto((tgetstr("sc", NULL)), 0, 0), 0, tputs_putchar);
 	ft_clean_prompt();
-	//prompt->complet_prompt = ft_list_to_string();
-	i = 0;
-	//ft_putstr(prompt->complet_prompt);
 	ft_list_show(prompt->l_char);
 	tputs(tgoto((tgetstr("rc", NULL)), 0, 0), 0, tputs_putchar);
 	prompt->x = prompt->x_copy;
 	prompt->index = prompt->x;
-	ft_strdel(&prompt->str_cpy);
 }
 
 void	ft_copy(void)

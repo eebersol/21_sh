@@ -12,14 +12,14 @@
 
 #include <21sh.h>
 
-t_cmd	*ft_build_heredoc(char *left, char *right)
+t_cmd	*ft_build_heredoc(char *left, t_list *list)
 {
 	t_heredoc *heredoc;
 
 	heredoc = (t_heredoc*)malloc(sizeof(t_heredoc));
 	heredoc->type = HEREDOC;
 	heredoc->left = ft_parse_cmd(left);
-	heredoc->right = right;
+	heredoc->right = list;
 	return ((t_cmd*)heredoc);
 }
 

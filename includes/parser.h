@@ -78,7 +78,7 @@ typedef	struct			s_heredoc
 {
 	t_type				type;
 	t_cmd				*left;
-	char				*right;
+	t_list				*right;
 }						t_heredoc;
 
 /////////Parser////////////
@@ -87,22 +87,31 @@ typedef	struct			s_heredoc
 t_cmd	*ft_build_pipe(char *left, char *right);
 t_cmd	*ft_build_exec(char *str);
 t_cmd	*ft_build_redirection(char *cmd, char *file, int mode, int fd);
-t_cmd	*ft_build_heredoc(char *left, char *right);
+t_cmd	*ft_build_heredoc(char *left, t_list *list);
 
 
 // ft_exec_parser.c
 void	ft_exec_pipe(t_cmd *cmd);
-void		ft_exec_cmd(t_cmd *cmd);
+void	ft_exec_cmd(t_cmd *cmd);
 void	ft_exec_redirectiont(t_cmd *cmd);
 void	ft_exec_heredoc(t_cmd *cmd);
 
 // ft_parser.c
 void	ft_main_parser(void);
 t_cmd	*ft_parse_cmd(char *str);
-int		parse_heredoc_redir(char *str);
+int		ft_chkrdir(char *str);
+t_list	*ft_get_opt(char *str);
 
 char	*ft_cut_withspace(char *str);
-char	*ft_right_body(char *str);
+char	*ft_right_body(char *s1);
+
+// ft_fn_exec.c 
+void	ft_exec_simple_cmd(t_cmd *cmd);
+
+// ft_parse_redir
+t_cmd	*ft_parse_redir_right(char *str, char *begin_cmd, char *second_cmd);
+t_cmd	*ft_parse_redir_left(char *str, char*begin_cmd, char *second_cmd);
+t_cmd	*ft_parse_redir_error(char *str, char *begin_cmd, char *second_cmd);
 
 #endif
 

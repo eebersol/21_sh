@@ -17,21 +17,23 @@ void	ft_history_to_lchar(char *str)
 	t_sh		*sh;
 	t_prompt	*prompt;
 	char		*dst;
-	int			i;
+	size_t		i;
 	int			j;
 
 	sh = ft_sh();
 	prompt = sh->prompt;
 	i = 0;
 	j = 0;
-	while ((size_t)i < ft_strlen(str))
+	while (i < ft_strlen(str))
 	{
 		dst = ft_strnew(1);
 		dst[j] = str[i];
-		ft_add_char(dst);
+		ft_lstadd(&prompt->l_char,
+			ft_lstnew(dst, (sizeof(char*) * ft_strlen(dst))));
 		prompt->index++;
 		ft_strdel(&dst);
 		i++;
 	}
+	ft_lstrev(&prompt->l_char);
 	str[i] = '\0';
 }

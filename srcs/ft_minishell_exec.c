@@ -38,8 +38,4 @@ void	minishell_exec(t_list *env, char **cmd)
 		ft_exit(cmd, &env);
 	else if ((cmd[0][0] == '.' && cmd[0][1] == '/') || cmd[0][0] == '/')
 		ft_exec(cmd, tab_env);
-	else if (1)
-	{
-		ft_main_parser();
-	}
 }

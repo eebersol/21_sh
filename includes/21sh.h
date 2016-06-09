@@ -200,6 +200,7 @@ void 	ft_history_to_lchar(char *str);
 void	ft_check_signal(void);
 char	*ft_cut_begin_doubleredir(char *str, char c);
 char	*ft_cut_second_doubleredir(char *str, char c, int jump);
+void	ft_list_show_to(t_list *list);
 
 // MAIN //
 t_sh	*ft_sh(void);

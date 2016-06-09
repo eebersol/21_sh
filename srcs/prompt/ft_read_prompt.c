@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_read_sh->prompt.c                                   :+:      :+:    :+:   */
+/*   ft_read_prompt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eebersol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,17 +12,15 @@
 
 #include <21sh.h>
 
-
-static void	ft_launch_cmd(t_sh *sh)
+static void		ft_launch_cmd(t_sh *sh)
 {
 	ft_lstdel(&sh->prompt->l_char, &ft_free_node);
-//	ft_bzero(b, 7);
 	sh->prompt->x = 0;
 	sh->prompt->index = 0;
 	ft_read_prompt();
 }
 
-char	*ft_read_prompt(void)
+char			*ft_read_prompt(void)
 {
 	t_sh		*sh;
 	char		b[7];
@@ -41,7 +39,7 @@ char	*ft_read_prompt(void)
 			if (ft_check_quote(sh) == 1)
 				ft_launch_cmd(sh);
 			ft_putchar('\n');
-			return(0);
+			return (0);
 		}
 		else
 			ft_is_carac(b);

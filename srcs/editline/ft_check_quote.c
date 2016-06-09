@@ -12,11 +12,7 @@
 
 #include <21sh.h>
 
-<<<<<<< HEAD
 int		ft_check_number_quote(t_sh *sh, t_quote quote)
-=======
-int		ft_check_number_quote(t_quote quote, t_prompt *prompt)
->>>>>>> e9ee33f9df160edb6577e2665f7cb78f3713decd
 {
 	if (quote.double_quote != 0
 		&& ft_check_double_quote(quote, sh->prompt) == 1)
@@ -31,15 +27,8 @@ int		ft_check_number_quote(t_quote quote, t_prompt *prompt)
 		return (0);
 }
 
-<<<<<<< HEAD
 int		ft_check_quote(t_sh *sh)
 {
-=======
-int		ft_check_quote(void)
-{
-	t_sh		*sh;
-	t_prompt	*prompt;
->>>>>>> e9ee33f9df160edb6577e2665f7cb78f3713decd
 	t_list		*cur;
 	t_quote		quote;
 	char		c;

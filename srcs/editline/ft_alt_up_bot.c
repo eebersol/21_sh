@@ -31,7 +31,7 @@ static	void	ft_is_last_li(t_prompt *prompt, t_window window)
 	}
 }
 
-static void		ft_is_moving(t_prompt *prompt, t_window	window)
+static void		ft_is_moving(t_prompt *prompt, t_window window)
 {
 	tputs(tgoto((tgetstr("do", NULL)), 0, 0), 0, tputs_putchar);
 	prompt->index = prompt->x + window.col;
@@ -47,7 +47,7 @@ static void		ft_is_moving(t_prompt *prompt, t_window	window)
 	prompt->count = 0;
 }
 
-void		ft_alt_up(void)
+void			ft_alt_up(void)
 {
 	t_sh		*sh;
 	t_window	window;
@@ -75,8 +75,7 @@ void		ft_alt_up(void)
 	sh->prompt->index = sh->prompt->x;
 }
 
-
-void		ft_alt_down(void)
+void			ft_alt_down(void)
 {
 	t_sh		*sh;
 	t_prompt	*prompt;
