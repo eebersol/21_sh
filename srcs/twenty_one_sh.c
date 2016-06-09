@@ -12,6 +12,18 @@
 
 #include <21sh.h>
 
+static void		ft_show_banner(t_sh *sh)
+{
+	int		fd;
+	char	*line;
+
+	(void)sh;
+	fd = open(".banner", O_RDWR);
+	while (get_next_line(fd, &line))
+		ft_putendl(line);
+	close(fd);
+}
+
 t_sh	*ft_sh(void)
 {
 	static t_sh		sh;
@@ -23,7 +35,8 @@ int		shell(t_sh *sh)
 {
 	t_prompt *prompt;
 
-	ft_putstr("$>");
+//	ft_putstr("$>");
+	ft_display_prompt(sh->env);
 	ft_init_winsize();
 	ft_check_signal();
 	while (42)
@@ -36,7 +49,8 @@ int		shell(t_sh *sh)
 		ft_read_prompt();
 		if (prompt->complet_prompt)
 			ft_main_parser();
-		ft_putstr("$>");
+		ft_display_prompt(sh->env);
+//		ft_putstr("$>");
 	}
 }
 
@@ -50,5 +64,6 @@ int		main(int ac, char **av, char **environ)
 		ft_error_ac();
 	else
 		ft_launch_env(sh, environ);
+	ft_show_banner(sh);
 	return (shell(sh));
 }
