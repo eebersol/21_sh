@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 void	ft_clean_prompt(void)
 {
@@ -37,9 +37,16 @@ void	ft_clean_prompt(void)
 
 void	ft_clean_history(char *str)
 {
-	int i;
+	t_sh	*sh;
+	int		i;
 
+	sh = ft_sh();
 	i = ft_strlen(str);
+	while (sh->prompt->x < ft_lstlen(sh->prompt->l_char))
+	{
+		sh->prompt->x++;
+		tputs(tgoto((tgetstr("nd", NULL)), 0, 0), 0, tputs_putchar);
+	}
 	while (i > 0)
 	{
 		tputs(tgoto((tgetstr("le", NULL)), 0, 0), 0, tputs_putchar);

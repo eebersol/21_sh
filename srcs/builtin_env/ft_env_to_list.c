@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 void	ft_env_to_list(t_list **list, char **environ)
 {

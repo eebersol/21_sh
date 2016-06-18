@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 int		ft_check_number_quote(t_sh *sh, t_quote quote)
 {

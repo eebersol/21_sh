@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 static void		ft_launch_cmd(t_sh *sh)
 {
@@ -30,8 +30,8 @@ char			*ft_read_prompt(void)
 	while (read(0, b, 7))
 	{
 		sh->prompt->lenght = ft_lstlen(sh->prompt->l_char);
-		if (IS_ARROW || CNTRL || DELETE || HOME || END || ALT_UP
-			|| ALT_BOT || S_C || S_V || S_X || S_L || S_R)
+		if (IS_ARROW || CNTRL_D || DELETE || HOME || END || ALT_UP
+			|| ALT_BOT || A_C || A_V || A_X || S_L || S_R || HISTORY)
 			ft_is_control(b);
 		else if (ENTER)
 		{

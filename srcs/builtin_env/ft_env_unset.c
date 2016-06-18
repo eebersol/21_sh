@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 static t_list		*ft_match_node(t_list *cur,
 											t_list **list, char **cmd, int j)

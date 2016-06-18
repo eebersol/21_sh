@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 void	ft_get_col_li(void)
 {
@@ -22,11 +22,12 @@ void	ft_get_col_li(void)
 	if (window->win_count == 0)
 	{
 		window->col = (tgetnum("co"));
-		window->li = tgetnum("li");
+		window->li = (sh->prompt->x / window->col) + 1;
 	}
 	else if (window->win_count != 0)
 	{
 		window->col = window->win.ws_col;
-		window->li = window->win.ws_row;
+		window->li = (sh->prompt->x / window->win.ws_row) + 1;
+		sh->prompt->y = window->li;
 	}
 }

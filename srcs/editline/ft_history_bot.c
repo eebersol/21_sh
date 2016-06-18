@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_list_to_string.c                                :+:      :+:    :+:   */
+/*   ft_history_bot.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eebersol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,26 @@
 
 #include <shell.h>
 
-char	*ft_list_to_string(void)
+static	void	ft_basic_bot(t_prompt *prompt, t_list *cur)
+{
+	cur = prompt->history;
+	cur = ft_lstget_at(cur, prompt->index_history);
+	ft_lstdel(&prompt->l_char, &ft_free_node);
+	ft_history_to_lchar(cur->content);
+	ft_clean_history((char*)cur->content);
+	prompt->index_history++;
+	if (prompt->index_history == ft_lstlen(prompt->history))
+		prompt->index_history = 0;
+	cur = prompt->history;
+	cur = ft_lstget_at(prompt->history, prompt->index_history);
+	prompt->x = ft_strlen((char*)cur->content);
+	prompt->index = prompt->x;
+	ft_putstr(cur->content);
+	ft_lstdel(&prompt->l_char, &ft_free_node);
+	ft_history_to_lchar(cur->content);
+}
+
+void			ft_move_bot(void)
 {
 	t_sh		*sh;
 	t_prompt	*prompt;
@@ -20,12 +39,10 @@ char	*ft_list_to_string(void)
 
 	sh = ft_sh();
 	prompt = sh->prompt;
-	cur = prompt->l_char;
-	while (cur)
-	{
-		prompt->complet_prompt = ft_freejoin(prompt->complet_prompt,
-			(char*)cur->content);
-		cur = cur->next;
-	}
-	return (prompt->complet_prompt);
+	cur = prompt->history;
+	ft_lstdel(&prompt->l_char, &ft_free_node);
+	if (prompt->first_process == 0)
+		return ;
+	else
+		ft_basic_bot(prompt, cur);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 void	ft_cuting(void)
 {
@@ -66,7 +66,6 @@ void	ft_paste(void)
 {
 	t_sh		*sh;
 	t_prompt	*prompt;
-	t_list		*new_char;
 	char		c;
 	size_t		i;
 
@@ -76,8 +75,8 @@ void	ft_paste(void)
 	while (i < ft_strlen(prompt->str_cpy))
 	{
 		c = prompt->str_cpy[i];
-		new_char = ft_lstnew(&c, sizeof(char*));
-		ft_lstadd_at(&prompt->l_char, new_char, prompt->x + i);
+		ft_lstadd_at(&prompt->l_char,
+			ft_lstnew(&c, sizeof(char)), prompt->x + i);
 		i++;
 	}
 	prompt->x_copy = prompt->x;
@@ -112,11 +111,11 @@ void	ft_copy_paste_cut(char *b)
 
 	sh = ft_sh();
 	prompt = sh->prompt;
-	if (S_C)
+	if (A_C)
 		ft_copy();
-	else if (S_V)
+	else if (A_V)
 		ft_paste();
-	else if (S_X)
+	else if (A_X)
 	{
 		if (prompt->copy_mode == 0)
 		{

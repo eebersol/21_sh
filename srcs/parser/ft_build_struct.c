@@ -10,7 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
+
+t_cmd	*ft_build_error(char *msg_error)
+{
+	t_error	*error;
+
+	error = (t_error*)malloc(sizeof(t_error));
+	error->msg_err = msg_error;
+	return ((t_cmd*)error);
+}
 
 t_cmd	*ft_build_heredoc(char *left, t_list *list)
 {

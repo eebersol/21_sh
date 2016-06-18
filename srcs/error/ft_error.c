@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 void	ft_error_ac(void)
 {
@@ -20,6 +20,34 @@ void	ft_error_ac(void)
 
 void	ft_error_not_found(char *varname)
 {
+	t_sh *sh;
+
+	sh = ft_sh();
+	if (sh->prompt->error_quote == 1)
+		return ;
 	ft_putstr_fd(varname, 2);
 	ft_putendl_fd(": command not found", 2);
+}
+
+void	ft_error_parser(void)
+{
+	ft_putendl_fd("21sh : parse error near '\\n'", 2);
+}
+
+int		ft_error_bonus(char **cmd)
+{
+	t_sh	*sh;
+
+	sh = ft_sh();
+	if (ft_tab_len(cmd) > 1)
+	{
+		ft_putendl_fd("Seek_history need oly one numeric argument", 2);
+		return (1);
+	}
+	else if (!cmd[0][1] || ft_isdigit(cmd[0][1]) == 0)
+	{
+		ft_putendl_fd("Seek_history need numeric argument", 2);
+		return (1);
+	}
+	return (0);
 }

@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_string_to_lchar.c                               :+:      :+:    :+:   */
+/*   ft_redir_bis.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eebersol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/04 20:39:58 by eebersol          #+#    #+#             */
-/*   Updated: 2016/05/04 20:39:59 by eebersol         ###   ########.fr       */
+/*   Created: 2016/04/09 17:23:19 by eebersol          #+#    #+#             */
+/*   Updated: 2016/04/21 16:49:09 by eebersol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <shell.h>
 
-void	ft_history_to_lchar(char *str)
+void		ft_exec_redirection_bis(t_cmd *cmd)
 {
-	t_sh		*sh;
-	t_prompt	*prompt;
-	char		*dst;
-	size_t		i;
-	int			j;
+	t_redirection		*rcmd;
+	int					new_fd;
 
-	sh = ft_sh();
-	prompt = sh->prompt;
-	i = 0;
-	j = 0;
-	while (i < ft_strlen(str))
-	{
-		dst = ft_strnew(1);
-		dst[j] = str[i];
-		ft_lstadd(&prompt->l_char,
-			ft_lstnew(dst, (sizeof(char*) * ft_strlen(dst))));
-		prompt->index++;
-		ft_strdel(&dst);
-		i++;
-	}
-	ft_lstrev(&prompt->l_char);
-	str[i] = '\0';
+	rcmd = (t_redirection*)cmd;
+	new_fd = rcmd->mode;
+	dup2(new_fd, rcmd->fd);
+	ft_exec_cmd(rcmd->cmd);
 }

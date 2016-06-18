@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 char	**ft_list_to_tab(t_list **list)
 {
@@ -26,12 +26,12 @@ char	**ft_list_to_tab(t_list **list)
 	{
 		env = cur->content;
 		if (env->var)
-			tab_env[i] = ft_strdup((ft_strjoin(env->var, "=")));
+			tab_env[i] = ft_strjoin(env->var, "=");
 		if (env->value)
-			tab_env[i] = ft_strdup((ft_strjoin(tab_env[i], env->value)));
+			tab_env[i] = ft_strjoin(tab_env[i], env->value);
 		i++;
 		cur = cur->next;
 	}
-	tab_env[i] = NULL;
+	tab_env[i] = "\0";
 	return (tab_env);
 }

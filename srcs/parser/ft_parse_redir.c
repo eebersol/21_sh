@@ -10,64 +10,107 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
-t_cmd	*ft_parse_redir_right(char *str, char *begin_cmd, char *second_cmd)
+static	t_cmd 	*ft_parse_redir_error_bis(char *str)
+{
+	t_sh	*sh;
+
+	sh = ft_sh();
+	sh->prompt->type = 1;
+	if (ft_chkrdir_err(str) == 3)
+		return (ft_build_redirection(ft_cut_begin(str, '1'), NULL, 2, 1));
+	else
+		return (ft_build_redirection(ft_cut_begin(str, '2'), NULL, 1, 2));
+}
+
+t_cmd			*ft_parse_pipe(char *str)
+{
+	char	*begin_cmd;
+	char	*second_cmd;
+
+	begin_cmd = ft_cut_begin(str, '|');
+	second_cmd = ft_cut_second_cmd_pipe(str);
+	return (ft_build_pipe(begin_cmd, second_cmd));
+}
+
+t_cmd			*ft_parse_redir_right(char *str)
 {
 	t_list	*list;
-	char	*p_str;
+	char	*begin_cmd;
+	char	*second_cmd;
 
-	p_str = ft_strnew(1);
-	if ((*p_str = ft_strchr(str, '<') != NULL) && ft_chkrdir(str) == 0)
+	begin_cmd = ft_cut_begin(str, '<');
+	if (ft_chkrdir(str) == 4)
 	{
-		second_cmd = ft_cut_withspace(second_cmd);
+		if (ft_strlen((second_cmd = ft_cut_secondcmd(str, '<', 1))) == 0)
+			return (ft_build_error("21sh : parse error near `\\n'"));
 		return (ft_build_redirection(begin_cmd, second_cmd, M_READ_APPEND, 0));
 	}
 	else
 	{
-		begin_cmd = ft_cut_begin_doubleredir(str, '<');
-		second_cmd = ft_cut_second_doubleredir(str, '<', 2);
+		if (ft_strlen((second_cmd = ft_cut_secondcmd(str, '<', 2))) == 0)
+			return (ft_build_error("21sh : parse error near `\\n'"));
 		list = ft_get_opt(second_cmd);
 		return (ft_build_heredoc(begin_cmd, list));
 	}
 }
 
-t_cmd	*ft_parse_redir_left(char *str, char *begin_cmd, char *second_cmd)
+t_cmd			*ft_parse_redir_left(char *str)
 {
-	char	*p_str;
+	char	*begin_cmd;
+	char	*second_cmd;
 
-	p_str = ft_strnew(1);
-	if ((*p_str = ft_strchr(str, '>') != NULL) && ft_chkrdir(str) == 0)
+	begin_cmd = ft_cut_begin(str, '>');
+	if (ft_chkrdir(str) == 2)
 	{
-		second_cmd = ft_cut_withspace(second_cmd);
+		if (ft_strlen((second_cmd = ft_cut_secondcmd(str, '>', 1))) == 0)
+			return (ft_build_error("21sh : parse error near `\\n'"));
 		return (ft_build_redirection(begin_cmd, second_cmd, M_WRITE_TRUNC, 1));
 	}
 	else
 	{
-		begin_cmd = ft_cut_begin_doubleredir(str, '>');
-		second_cmd = ft_cut_second_doubleredir(str, '>', 2);
+		if (ft_strlen((second_cmd = ft_cut_secondcmd(str, '>', 2))) == 0)
+			return (ft_build_error("21sh : parse error near `\\n'"));
 		return (ft_build_redirection(begin_cmd, second_cmd, M_WRITE_APPEND, 1));
 	}
 }
 
-t_cmd	*ft_parse_redir_error(char *str, char *begin_cmd, char *second_cmd)
+t_cmd			*ft_parse_redir_error(char *str)
 {
-	if (ft_chkrdir(str) == 3)
+	char	*begin_cmd;
+	char	*second_cmd;
+
+	if (ft_chkrdir_err(str) == 1)
 	{
-		second_cmd = ft_cut_withspace(second_cmd);
-		begin_cmd = ft_strsub(begin_cmd, 0, ft_strlen(begin_cmd) - 1);
+		begin_cmd = ft_cut_begin(str, '2');
+		if (ft_strlen((second_cmd = ft_cut_secondcmd(str, '>', 1))) == 0)
+			return (ft_build_error("21sh : parse error near `\\n'"));
 		return (ft_build_redirection(begin_cmd, second_cmd, M_WRITE_TRUNC, 2));
 	}
-	if (ft_chkrdir(str) == 4)
+	if (ft_chkrdir_err(str) == 2)
 	{
-		second_cmd = ft_strsub(second_cmd, 1, ft_strlen(second_cmd) - 1);
-		second_cmd = ft_cut_withspace(second_cmd);
-		begin_cmd = ft_strsub(begin_cmd, 0, ft_strlen(begin_cmd) - 1);
+		begin_cmd = ft_cut_begin(str, '2');
+		if (ft_strlen((second_cmd = ft_cut_secondcmd(str, '>', 2))) == 0)
+			return (ft_build_error("21sh : parse error near `\\n'"));
 		return (ft_build_redirection(begin_cmd, second_cmd, M_WRITE_APPEND, 2));
 	}
 	else
+		return(ft_parse_redir_error_bis(str));
+}
+
+t_cmd	*ft_parse_redir_close(char *str)
+{
+	char	*begin_cmd;
+
+	if (ft_chkrdir_close(str) == 1)
 	{
-		begin_cmd = ft_strsub(begin_cmd, 0, ft_strlen(begin_cmd) - 1);
-		return (ft_build_redirection(begin_cmd, NULL, M_READ, 0));
+		begin_cmd = ft_cut_begin(str, '2');
+		return (ft_build_redirection(begin_cmd, NULL, 2, 2));
+	}
+	else
+	{
+		begin_cmd = ft_cut_begin(str, '1');
+		return (ft_build_redirection(begin_cmd, NULL, 1, 1));
 	}
 }

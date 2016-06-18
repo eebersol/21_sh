@@ -10,41 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
-static	void	ft_is_last_li(t_prompt *prompt, t_window window)
+static	void	ft_up_bis(t_sh *sh, t_window window)
 {
-	if (prompt->x % window.col < window.li)
-	{
-		tputs(tgoto((tgetstr("do", NULL)), 0, 0), 0, tputs_putchar);
-		prompt->index = prompt->x + window.col;
-		prompt->x = window.col - prompt->x;
-		prompt->count = (window.col * prompt->y) - prompt->x;
-		prompt->x += prompt->count - 2;
-		while (prompt->x < prompt->index)
-		{
-			prompt->x++;
-			tputs(tgoto((tgetstr("nd", NULL)), 0, 0), 0, tputs_putchar);
-		}
-		prompt->index = prompt->x;
-		prompt->count = 0;
-	}
+	tputs(tgoto((tgetstr("up", NULL)), 0, 0), 0, tputs_putchar);
+	if (sh->prompt->x < window.col - 1)
+		sh->prompt->x = -2;
+	else
+		sh->prompt->x = -1;
+	while (sh->prompt->x++ < 0)
+		tputs(tgoto((tgetstr("nd", NULL)), 0, 0), 0, tputs_putchar);
+	sh->prompt->y = 1;
 }
 
 static void		ft_is_moving(t_prompt *prompt, t_window window)
 {
-	tputs(tgoto((tgetstr("do", NULL)), 0, 0), 0, tputs_putchar);
-	prompt->index = prompt->x + window.col;
-	prompt->x = window.col - prompt->x;
-	prompt->count = (window.col * prompt->y) - prompt->x;
-	prompt->x += prompt->count - 2;
-	while (prompt->x < prompt->index)
-	{
-		prompt->x++;
-		tputs(tgoto((tgetstr("nd", NULL)), 0, 0), 0, tputs_putchar);
-	}
+	int i;
+
 	prompt->index = prompt->x;
+	prompt->index += window.col;
+	if (prompt->index > ft_lstlen(prompt->l_char))
+		return ;
+	else
+	{
+		i = 0;
+		tputs(tgoto((tgetstr("do", NULL)), 0, 0), 0, tputs_putchar);
+		prompt->count = window.col - prompt->x;
+		prompt->x += prompt->count;
+		prompt->count = prompt->index - (window.col * prompt->y) + 4;
+	}
+	while (i < prompt->count)
+	{
+		tputs(tgoto((tgetstr("nd", NULL)), 0, 0), 0, tputs_putchar);
+		i++;
+	}
 	prompt->count = 0;
+	prompt->x = prompt->index;
 }
 
 void			ft_alt_up(void)
@@ -54,18 +56,14 @@ void			ft_alt_up(void)
 
 	sh = ft_sh();
 	window = sh->window;
-	sh->prompt->y = ((sh->prompt->x + 3) / sh->window.col) + 1;
-	if (sh->prompt->y == 2 && sh->prompt->x < window.col)
-	{
-		tputs(tgoto((tgetstr("up", NULL)), 0, 0), 0, tputs_putchar);
-		if (sh->prompt->x < window.col - 1)
-			sh->prompt->x = -2;
-		else
-			sh->prompt->x = -1;
-		while (sh->prompt->x++ < 0)
-			tputs(tgoto((tgetstr("nd", NULL)), 0, 0), 0, tputs_putchar);
-		sh->prompt->y = 1;
-	}
+	sh->prompt->index = sh->prompt->x;
+	sh->prompt->y = ((sh->prompt->x + 3) / window.col) + 1;
+	if ((sh->prompt->y == 1) ||
+		(sh->prompt->index > (window.col - 4)
+			&& sh->prompt->index < window.col))
+		return ;
+	else if (sh->prompt->y == 2 && sh->prompt->x < window.col)
+		ft_up_bis(sh, window);
 	else if (sh->prompt->y != 1)
 	{
 		tputs(tgoto((tgetstr("up", NULL)), 0, 0), 0, tputs_putchar);
@@ -91,8 +89,6 @@ void			ft_alt_down(void)
 	window.li += 2;
 	if (prompt->y == (ft_lstlen(prompt->l_char)) / (window.col) + 1)
 		return ;
-	else if (prompt->y == prompt->max_li)
-		ft_is_last_li(prompt, window);
 	else
 		ft_is_moving(prompt, window);
 }

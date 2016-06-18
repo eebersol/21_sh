@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 void	ft_is_carac(char *b)
 {
@@ -19,6 +19,8 @@ void	ft_is_carac(char *b)
 
 	sh = ft_sh();
 	prompt = sh->prompt;
+	if (TAB)
+		b = ft_strdup(" ");
 	if (prompt->x == prompt->lenght)
 	{
 		ft_add_char(b);

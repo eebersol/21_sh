@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 void	ft_term_init(t_sh *sh)
 {
@@ -18,19 +18,14 @@ void	ft_term_init(t_sh *sh)
 
 	if ((sh->term_name = getenv("TERM")) == NULL)
 	{
-		printf("1\n");
+		ft_putstr_fd("21sh need complet env to run,", 2);
+		ft_putendl_fd(" please reload with full env.", 2);
 		exit(1);
 	}
 	if (tgetent(buff_env, sh->term_name) != 1)
-	{
-		printf("2\n");
 		exit(1);
-	}
 	if (tcgetattr(0, &sh->term) == -1)
-	{
-		printf("3\n");
 		exit(1);
-	}
 	sh->term.c_lflag &= ~(ICANON);
 	sh->term.c_lflag &= ~(ECHO);
 	sh->term.c_cc[VMIN] = 1;

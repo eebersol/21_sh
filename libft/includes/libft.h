@@ -112,6 +112,6 @@ char				*ft_freejoin(char *s1, char *s2);
 int					get_next_line(const int fd, char **line);
 char				**ft_word_to_tab(char const *s);
 int					ft_tab_len(char **tab);
-void					ft_tab_free(char **tab);
+void				ft_tab_free(char **tab);
 
 #endif

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 void	ft_delete_char(void)
 {
@@ -19,6 +19,8 @@ void	ft_delete_char(void)
 
 	sh = ft_sh();
 	prompt = sh->prompt;
+	if (prompt->x == 0)
+		return ;
 	ft_lstdel_at(&prompt->l_char, prompt->index - 1, &ft_free_node);
 	ft_arrow_left();
 	tputs(tgoto((tgetstr("dc", NULL)), 0, 0), 0, tputs_putchar);

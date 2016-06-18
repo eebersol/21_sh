@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 void	ft_add_char(char *b)
 {
@@ -20,6 +20,7 @@ void	ft_add_char(char *b)
 
 	sh = ft_sh();
 	prompt = sh->prompt;
+	prompt->index = prompt->x;
 	new_char = ft_lstnew(b, (sizeof(char*) * ft_strlen(b)));
 	ft_lstadd_at(&prompt->l_char, new_char, prompt->index);
 }

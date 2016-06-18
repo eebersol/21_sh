@@ -13,31 +13,15 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# include <unistd.h>
-# include <errno.h>
-# include <string.h>
-# include <stdlib.h>
-# include <sys/stat.h>
-# include "../libft/includes/libft.h"
-# include <signal.h>
-# include <termios.h>
-# include <term.h>
-# include <curses.h>
-# include <sys/ioctl.h>
-# include <fcntl.h>
-
-# define WHITESPACES " \t\r\n\v"
-# define TOKEN "<|>"
-# define MAXARGS 10
 # define M_WRITE_TRUNC (O_WRONLY | O_NONBLOCK | O_CREAT | O_TRUNC)
 # define M_WRITE_APPEND (O_WRONLY | O_NONBLOCK | O_CREAT | O_APPEND)
 # define M_READ_TRUNC (O_RDONLY | O_NONBLOCK | O_CREAT | O_TRUNC)
 # define M_READ_APPEND (O_RDONLY | O_NONBLOCK | O_CREAT | O_APPEND)
 # define M_READ (O_RDONLY | O_NONBLOCK | O_CREAT)
 
-enum	e_type
+enum					e_type
 {
-	ERRROR,
+	ERROR,
 	EXEC,
 	PIPE,
 	REDIRECTION,
@@ -50,6 +34,12 @@ typedef	struct			s_cmd
 {
 	t_type				type;
 }						t_cmd;
+
+typedef struct			s_error
+{
+	t_type				type;
+	char				*msg_err;
+}						t_error;
 
 typedef struct			s_exec
 {
@@ -80,52 +70,48 @@ typedef	struct			s_heredoc
 	t_cmd				*left;
 	t_list				*right;
 }						t_heredoc;
-
-/////////Parser////////////
-
-// ft_build_struct.c
-t_cmd	*ft_build_pipe(char *left, char *right);
-t_cmd	*ft_build_exec(char *str);
-t_cmd	*ft_build_redirection(char *cmd, char *file, int mode, int fd);
-t_cmd	*ft_build_heredoc(char *left, t_list *list);
-
-
-// ft_exec_parser.c
-void	ft_exec_pipe(t_cmd *cmd);
-void	ft_exec_cmd(t_cmd *cmd);
-void	ft_exec_redirectiont(t_cmd *cmd);
-void	ft_exec_heredoc(t_cmd *cmd);
-
-// ft_parser.c
-void	ft_main_parser(void);
-t_cmd	*ft_parse_cmd(char *str);
-int		ft_chkrdir(char *str);
-t_list	*ft_get_opt(char *str);
-
-char	*ft_cut_withspace(char *str);
-char	*ft_right_body(char *s1);
-
-// ft_fn_exec.c 
-void	ft_exec_simple_cmd(t_cmd *cmd);
-
-// ft_parse_redir
-t_cmd	*ft_parse_redir_right(char *str, char *begin_cmd, char *second_cmd);
-t_cmd	*ft_parse_redir_left(char *str, char*begin_cmd, char *second_cmd);
-t_cmd	*ft_parse_redir_error(char *str, char *begin_cmd, char *second_cmd);
-
+/*
+**	ft_build_struct.c
+*/
+t_cmd					*ft_build_pipe(char *left, char *right);
+t_cmd					*ft_build_exec(char *str);
+t_cmd					*ft_build_redirection(char *cmd,
+										char *file, int mode, int fd);
+t_cmd					*ft_build_heredoc(char *left, t_list *list);
+t_cmd					*ft_build_error(char *msg_error);
+/*
+** ft_exec_parser.c
+*/
+void					ft_exec_pipe(t_cmd *cmd);
+void					ft_exec_cmd(t_cmd *cmd);
+void					ft_exec_redirectiont(t_cmd *cmd);
+void					ft_exec_heredoc(t_cmd *cmd);
+void					ft_exec_redirection_bis(t_cmd *cmd);
+/*
+** ft_parser.c
+*/
+void					ft_main_parser(void);
+t_cmd					*ft_parse_cmd(char *str);
+t_list					*ft_get_opt(char *str);
+char					*ft_cut_withspace(char *str);
+char					*ft_rbody(char *s1);
+char					*ft_cut_second_cmd_pipe(char *str);
+/*
+** ft_fn_exec.c
+*/
+void					ft_exec_simple_cmd(t_cmd *cmd);
+/*
+** ft_parse_redir
+*/
+t_cmd					*ft_parse_redir_right(char *str);
+t_cmd					*ft_parse_redir_left(char *str);
+t_cmd					*ft_parse_redir_error(char *str);
+t_cmd					*ft_parse_pipe(char *str);
+/*
+** ft_check
+*/
+int						ft_chkrdir(char *s1);
+int						ft_chkrdir_err(char *s1);
+int						ft_chkrdir_close(char *s1);
+t_cmd					*ft_parse_redir_close(char *str);
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

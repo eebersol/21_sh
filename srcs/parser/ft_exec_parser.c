@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 static void		ft_print_stdout(t_heredoc *p_cmd, int *p)
 {
@@ -57,14 +57,24 @@ void			ft_exec_redirection(t_cmd *cmd)
 	t_redirection		*rcmd;
 	int					new_fd;
 	int					old_fd;
+	t_sh 				*sh;
 
+	sh = ft_sh();
 	rcmd = (t_redirection*)cmd;
-	new_fd = open(rcmd->file, rcmd->mode, S_IRUSR | S_IWUSR);
-	old_fd = dup(rcmd->fd);
-	dup2(new_fd, rcmd->fd);
-	close(new_fd);
-	ft_exec_cmd(rcmd->cmd);
-	dup2(old_fd, rcmd->fd);
+	if ( sh->prompt->type == 1)
+		ft_exec_redirection_bis(cmd);
+	else
+	{
+		if (rcmd->file == NULL)
+			new_fd = rcmd->mode;
+		else
+			new_fd = open(rcmd->file, rcmd->mode, S_IRUSR | S_IWUSR);
+		old_fd = dup(rcmd->fd);
+		dup2(new_fd, rcmd->fd);
+		close(new_fd);
+		ft_exec_cmd(rcmd->cmd);
+		dup2(old_fd, rcmd->fd);
+	}
 }
 
 void			ft_exec_pipe(t_cmd *cmd)
@@ -98,12 +108,10 @@ void			ft_exec_pipe(t_cmd *cmd)
 
 void			ft_exec_cmd(t_cmd *cmd)
 {
-	t_sh			*sh;
 	t_pipe			*pipe;
 	t_redirection	*redirection;
 	t_heredoc		*heredoc;
 
-	sh = ft_sh();
 	if (cmd->type == PIPE)
 	{
 		pipe = (t_pipe*)cmd;
@@ -121,5 +129,6 @@ void			ft_exec_cmd(t_cmd *cmd)
 		heredoc = (t_heredoc*)cmd;
 		ft_exec_heredoc(cmd);
 	}
-	return ;
+	else if (cmd->type == ERROR)
+		ft_error_parser();
 }

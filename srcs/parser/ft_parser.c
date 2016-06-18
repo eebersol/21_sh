@@ -10,32 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
-
-int		ft_chkrdir(char *s1)
-{
-	int i;
-	int	j;
-
-	i = ft_strlen(s1);
-	j = 0;
-	while (j < i)
-	{
-		if (s1[j] == '>' && s1[j + 1] == '>' && s1[j - 1] != '2')
-			return (1);
-		else if (s1[j] == '<' && s1[j + 1] == '<')
-			return (2);
-		else if (s1[j] == '>' && s1[j + 1] != '>' && s1[j - 1] == '2')
-			return (3);
-		else if (s1[j] == '>' && s1[j + 1] == '>' && s1[j - 1] == '2')
-			return (4);
-		else if (s1[j] == '1' && s1[j + 1] == '>' && s1[j + 2] == '&'
-			&& s1[j + 3] == '2')
-			return (5);
-		j++;
-	}
-	return (0);
-}
+#include <shell.h>
 
 t_list	*ft_get_opt(char *s1)
 {
@@ -68,31 +43,25 @@ t_list	*ft_get_opt(char *s1)
 
 t_cmd	*ft_parse_cmd(char *s1)
 {
-	char		*begin_cmd;
-	char		*second_cmd;
 	char		*p_s1;
 	size_t		i;
 
 	i = 0;
-	second_cmd = ft_strnew(1);
 	p_s1 = ft_strnew(1);
-	begin_cmd = ft_cut_withspace(s1);
 	while (i < (ft_strlen(s1)) && s1[i] != '|' && s1[i] != '<' && s1[i] != '>')
 		i++;
-	if ((ft_strsub(s1, (i + 1), ((i - (ft_strlen(s1))) * -1))) != NULL)
-		second_cmd = ft_right_body(ft_strsub(s1, i + 1, ((i - ft_strlen(s1) * -1))));
-	if (((*p_s1 = ft_strchr(s1, '>') != NULL) && ft_chkrdir(s1) == 1) ||
-				((*p_s1 = ft_strchr(s1, '>') != NULL) && ft_chkrdir(s1) == 0))
-		return (ft_parse_redir_left(s1, begin_cmd, second_cmd));
-	else if (((*p_s1 = ft_strchr(s1, '<') != NULL) && ft_chkrdir(s1) == 2) ||
-				((*p_s1 = ft_strchr(s1, '<') != NULL) && ft_chkrdir(s1) == 0))
-		return (ft_parse_redir_right(s1, begin_cmd, second_cmd));
-	else if (ft_chkrdir(s1) == 3 || ft_chkrdir(s1) == 4 || ft_chkrdir(s1) == 5)
-		return (ft_parse_redir_error(s1, begin_cmd, second_cmd));
-	else if (ft_strchr(s1, '|'))
-		return (ft_build_pipe(begin_cmd, second_cmd));
+	if (ft_strchr(s1, '|'))
+		return (ft_parse_pipe(s1));
+	else if (ft_chkrdir(s1) == 1 || ft_chkrdir(s1) == 2)
+		return (ft_parse_redir_left(s1));
+	else if (ft_chkrdir(s1) == 3 || ft_chkrdir(s1) == 4)
+		return (ft_parse_redir_right(s1));
+	else if (ft_chkrdir_err(s1) > 0)
+		return (ft_parse_redir_error(s1));
+	else if (ft_chkrdir_close(s1) > 0)
+		return (ft_parse_redir_close(s1));
 	else
-		return (ft_build_exec(begin_cmd));
+		return (ft_build_exec(ft_cut_withspace(s1)));
 }
 
 void	ft_main_parser(void)

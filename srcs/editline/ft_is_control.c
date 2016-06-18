@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 void	ft_is_control(char *b)
 {
@@ -23,7 +23,7 @@ void	ft_is_control(char *b)
 		ft_alt_up();
 	else if (ALT_BOT)
 		ft_alt_down();
-	else if (S_C || S_V || S_X)
+	else if (A_C || A_V || A_X)
 		ft_copy_paste_cut(b);
 	else if (S_L || S_R)
 		ft_move_word(b);
@@ -37,4 +37,6 @@ void	ft_is_control(char *b)
 		ft_cntrl_d();
 	else if (DELETE)
 		ft_delete_char();
+	else if (HISTORY)
+		ft_list_history();
 }

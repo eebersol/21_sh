@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 void	ft_exec_simple_cmd(t_cmd *cmd)
 {
@@ -21,7 +21,11 @@ void	ft_exec_simple_cmd(t_cmd *cmd)
 	sh = ft_sh();
 	exec = (t_exec*)cmd;
 	tmp_env = ft_list_to_tab(&sh->env);
-	if (((ft_strcmp(exec->opt[0], "cd")) == 0) ||
+	if (sh->prompt->copy_mode == 1)
+		tputs(tgoto((tgetstr("me", NULL)), 0, 0), 0, tputs_putchar);
+	if (!exec->opt[0])
+		return ;
+	if (((ft_strcmp(exec->opt[0], "cd")) == 0) || (exec->opt[0][0] == '!') ||
 		((ft_strcmp(exec->opt[0], "setenv")) == 0) ||
 			((ft_strcmp(exec->opt[0], "unsetenv")) == 0) ||
 				((ft_strcmp(exec->opt[0], "exit")) == 0) ||

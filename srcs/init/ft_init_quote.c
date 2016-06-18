@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 t_quote	ft_init_quote(void)
 {
@@ -21,9 +21,5 @@ t_quote	ft_init_quote(void)
 	quote.double_quote = 0;
 	quote.simple_quote = 0;
 	quote.black_quote = 0;
-	quote.hook_1 = 0;
-	quote.hook_2 = 0;
-	quote.accolade_1 = 0;
-	quote.accolade_2 = 0;
 	return (quote);
 }

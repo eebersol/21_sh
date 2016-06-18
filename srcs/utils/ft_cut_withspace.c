@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 static int		ft_count_file_len(char *str)
 {
@@ -35,20 +35,7 @@ char			*ft_cut_withspace(char *str)
 	return (new_str);
 }
 
-char			*ft_right_body(char *str)
-{
-	char	*new_str;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = ft_strlen(str);
-	new_str = ft_strdup(str);
-	new_str = ft_strtrim(new_str);
-	return (new_str);
-}
-
-char			*ft_cut_begin_doubleredir(char *str, char c)
+char			*ft_cut_begin(char *str, char c)
 {
 	char	*new_str;
 	int		i;
@@ -61,7 +48,7 @@ char			*ft_cut_begin_doubleredir(char *str, char c)
 	return (new_str);
 }
 
-char			*ft_cut_second_doubleredir(char *str, char c, int jump)
+char			*ft_cut_secondcmd(char *str, char c, int jump)
 {
 	char	*new_str;
 	char	*len_name;
@@ -71,14 +58,24 @@ char			*ft_cut_second_doubleredir(char *str, char c, int jump)
 	i = 0;
 	while (str[i] != c)
 		i++;
-	if (c == '|')
-		i += jump;
-	else
-		i += jump;
+	i += jump;
 	len_name = ft_strsub(str, 0, i);
 	new_str = ft_strsub(str, i, (ft_strlen(str) - i));
 	j = ft_count_file_len(new_str);
 	new_str = ft_strsub(str, i, j);
 	new_str = ft_strtrim(new_str);
 	return (new_str);
+}
+
+char			*ft_cut_second_cmd_pipe(char *str)
+{
+	int		i;
+	char	*second_cmd;
+
+	i = 0;
+	while (str[i] != '|')
+		i++;
+	i += 1;
+	second_cmd = ft_strsub(str, i, ft_strlen(str) - i);
+	return (second_cmd);
 }

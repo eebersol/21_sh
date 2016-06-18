@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 static	void	ft_init_vat(t_sh *sh)
 {
@@ -24,16 +24,17 @@ static	void	ft_init_vat(t_sh *sh)
 	sh->prompt->first_process = 0;
 	sh->prompt->quote_value = 0;
 	sh->prompt->quote_value_parenth = 0;
-	sh->prompt->index_word = 0;
 	sh->prompt->complet_prompt = ft_strnew(1);
 	sh->prompt->first_move_word = 0;
-	sh->prompt->index_d = 0;
 	sh->prompt->count = 0;
 	sh->prompt->max_li = 0;
 	sh->prompt->copy_mode = 0;
 	sh->prompt->str_cpy = ft_strnew(1);
 	sh->prompt->x_copy = 0;
 	sh->prompt->cut_len = 0;
+	sh->prompt->first_alt_top = 0;
+	sh->prompt->error_quote = 0;
+	sh->prompt->type = 0;
 }
 
 static	void	ft_unique_init_prompt(t_sh *sh)
@@ -43,6 +44,7 @@ static	void	ft_unique_init_prompt(t_sh *sh)
 	sh->prompt->history_len = 0;
 	sh->prompt->index_history = 0;
 	sh->prompt->history_len = 0;
+	sh->prompt->count_history = 0;
 }
 
 void			ft_init_sh(void)

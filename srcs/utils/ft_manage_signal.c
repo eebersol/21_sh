@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_string_to_lchar.c                               :+:      :+:    :+:   */
+/*   ft_manage_signal.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eebersol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/04 20:39:58 by eebersol          #+#    #+#             */
-/*   Updated: 2016/05/04 20:39:59 by eebersol         ###   ########.fr       */
+/*   Created: 2016/04/17 20:22:10 by eebersol          #+#    #+#             */
+/*   Updated: 2016/04/17 20:22:12 by eebersol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <shell.h>
 
-void	ft_history_to_lchar(char *str)
+void	ft_signal_exit(int sig)
 {
-	t_sh		*sh;
-	t_prompt	*prompt;
-	char		*dst;
-	size_t		i;
-	int			j;
+	t_sh *sh;
 
 	sh = ft_sh();
-	prompt = sh->prompt;
-	i = 0;
-	j = 0;
-	while (i < ft_strlen(str))
-	{
-		dst = ft_strnew(1);
-		dst[j] = str[i];
-		ft_lstadd(&prompt->l_char,
-			ft_lstnew(dst, (sizeof(char*) * ft_strlen(dst))));
-		prompt->index++;
-		ft_strdel(&dst);
-		i++;
-	}
-	ft_lstrev(&prompt->l_char);
-	str[i] = '\0';
+	ft_reset_prompt();
+	ft_term_reset(sh);
+	(void)sig;
+	exit(0);
+	return ;
+}
+
+void	ft_check_signal(void)
+{
+	ft_signal_handler(0);
+	signal(SIGQUIT, ft_signal_handler);
+	signal(SIGTSTP, ft_signal_handler);
+	signal(SIGINT, ft_signal_handler);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <21sh.h>
+#include <shell.h>
 
 int		ft_check_double_quote(t_quote quote, t_prompt *prompt)
 {
@@ -57,10 +57,39 @@ int		ft_check_parenth_quote(t_quote quote, t_prompt *prompt)
 	prompt->quote_value_parenth -= quote.parenth_2;
 	if (prompt->quote_value_parenth != 0)
 	{
+		if (prompt->complet_prompt[0] == ')')
+		{
+			ft_putendl_fd("\n21sh : parse error near \')\'", 2);
+			prompt->error_quote = 1;
+			return (0);
+		}
 		ft_putchar('\n');
 		ft_putstr(" >");
 		ft_lstdel(&prompt->l_char, &ft_free_node);
 		return (1);
 	}
+	prompt->complet_prompt = ft_cut_parenth(prompt->complet_prompt);
 	return (0);
+}
+
+char	*ft_cut_parenth(char *str)
+{
+	size_t	k;
+	size_t	j;
+	char	*new_str;
+
+	new_str = ft_strnew(1);
+	j = 0;
+	k = 0;
+	while (j < ft_strlen(str))
+	{
+		if (str[j] != '(' && str[j] != ')')
+		{
+			new_str[k] = str[j];
+			k++;
+		}
+		j++;
+	}
+	new_str[k] = '\0';
+	return (new_str);
 }
