@@ -25,6 +25,8 @@ void	ft_error_not_found(char *varname)
 	sh = ft_sh();
 	if (sh->prompt->error_quote == 1)
 		return ;
+	else if (ft_strcmp(varname, "setenv") == 0)
+		return ;
 	ft_putstr_fd(varname, 2);
 	ft_putendl_fd(": command not found", 2);
 }

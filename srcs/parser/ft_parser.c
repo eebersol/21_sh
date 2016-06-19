@@ -16,25 +16,25 @@ t_list	*ft_get_opt(char *s1)
 {
 	char		*b;
 	t_list		*list;
-	char		*content;
+	char		*ret;
 
-	content = NULL;
+	ret = NULL;
 	b = ft_strnew(1);
 	list = NULL;
 	ft_putstr("heredoc> ");
 	while (read(0, b, 1))
 	{
 		ft_putchar(b[0]);
-		content = ft_strtrim(ft_freejoin(content, b));
+		ret = ft_freejoin(ret, b);
 		if (ENTER)
 		{
-			if (ft_strcmp(content, s1) == 0)
+			if (ft_strcmp(ft_strtrim(ret), s1) == 0)
 				break ;
 			else
 			{
-				ft_lstadd(&list, ft_lstnew(content, ft_strlen(content)));
+				ft_lstadd(&list, ft_lstnew(ft_strtrim(ret), ft_strlen(ret)));
 				ft_putstr("heredoc> ");
-				content = ft_strnew(1);
+				ret = ft_strnew(1);
 			}
 		}
 	}
@@ -68,16 +68,19 @@ void	ft_main_parser(void)
 {
 	t_sh			*sh;
 	t_cmd			*cmd;
+	char			*str;
 	int				i;
 	char			**split;
 
 	sh = ft_sh();
 	i = 0;
-	split = ft_strsplit(sh->prompt->complet_prompt, ';');
+	str = ft_strdup(sh->prompt->complet_prompt);
+	split = ft_strsplit(str, ';');
 	while (i < ft_tab_len(split))
 	{
 		cmd = ft_parse_cmd(split[i]);
 		ft_exec_cmd(cmd);
 		i++;
 	}
+	ft_tab_free(split);
 }

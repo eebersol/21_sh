@@ -12,19 +12,7 @@
 
 #include <shell.h>
 
-static	t_cmd 	*ft_parse_redir_error_bis(char *str)
-{
-	t_sh	*sh;
-
-	sh = ft_sh();
-	sh->prompt->type = 1;
-	if (ft_chkrdir_err(str) == 3)
-		return (ft_build_redirection(ft_cut_begin(str, '1'), NULL, 2, 1));
-	else
-		return (ft_build_redirection(ft_cut_begin(str, '2'), NULL, 1, 2));
-}
-
-t_cmd			*ft_parse_pipe(char *str)
+t_cmd	*ft_parse_pipe(char *str)
 {
 	char	*begin_cmd;
 	char	*second_cmd;
@@ -34,7 +22,7 @@ t_cmd			*ft_parse_pipe(char *str)
 	return (ft_build_pipe(begin_cmd, second_cmd));
 }
 
-t_cmd			*ft_parse_redir_right(char *str)
+t_cmd	*ft_parse_redir_right(char *str)
 {
 	t_list	*list;
 	char	*begin_cmd;
@@ -56,7 +44,7 @@ t_cmd			*ft_parse_redir_right(char *str)
 	}
 }
 
-t_cmd			*ft_parse_redir_left(char *str)
+t_cmd	*ft_parse_redir_left(char *str)
 {
 	char	*begin_cmd;
 	char	*second_cmd;
@@ -76,7 +64,7 @@ t_cmd			*ft_parse_redir_left(char *str)
 	}
 }
 
-t_cmd			*ft_parse_redir_error(char *str)
+t_cmd	*ft_parse_redir_error(char *str)
 {
 	char	*begin_cmd;
 	char	*second_cmd;
@@ -96,7 +84,7 @@ t_cmd			*ft_parse_redir_error(char *str)
 		return (ft_build_redirection(begin_cmd, second_cmd, M_WRITE_APPEND, 2));
 	}
 	else
-		return(ft_parse_redir_error_bis(str));
+		return (ft_parse_redir_error_bis(str));
 }
 
 t_cmd	*ft_parse_redir_close(char *str)

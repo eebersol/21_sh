@@ -38,9 +38,9 @@ int			shell(t_sh *sh)
 	ft_init_winsize();
 	ft_check_signal();
 	ft_display_prompt(sh->env);
+	ft_term_init(sh);
 	while (42)
 	{
-		ft_term_init(sh);
 		ft_init_prompt();
 		ft_check_signal();
 		sh = ft_sh();
@@ -48,7 +48,9 @@ int			shell(t_sh *sh)
 		ft_get_col_li();
 		ft_read_prompt();
 		if (prompt->complet_prompt)
+		{
 			ft_main_parser();
+		}
 		ft_display_prompt(sh->env);
 	}
 }

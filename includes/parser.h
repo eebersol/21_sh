@@ -107,6 +107,7 @@ t_cmd					*ft_parse_redir_right(char *str);
 t_cmd					*ft_parse_redir_left(char *str);
 t_cmd					*ft_parse_redir_error(char *str);
 t_cmd					*ft_parse_pipe(char *str);
+t_cmd					*ft_parse_redir_error_bis(char *str);
 /*
 ** ft_check
 */

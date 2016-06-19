@@ -23,14 +23,14 @@ void	ft_exec_simple_cmd(t_cmd *cmd)
 	tmp_env = ft_list_to_tab(&sh->env);
 	if (sh->prompt->copy_mode == 1)
 		tputs(tgoto((tgetstr("me", NULL)), 0, 0), 0, tputs_putchar);
-	if (!exec->opt[0])
+	if (!exec->opt[0] || !exec->opt)
 		return ;
 	if (((ft_strcmp(exec->opt[0], "cd")) == 0) || (exec->opt[0][0] == '!') ||
 		((ft_strcmp(exec->opt[0], "setenv")) == 0) ||
 			((ft_strcmp(exec->opt[0], "unsetenv")) == 0) ||
 				((ft_strcmp(exec->opt[0], "exit")) == 0) ||
 					((ft_strcmp(exec->opt[0], "env")) == 0) ||
-						((ft_strcmp(exec->opt[0], "./")) == 0))
+						(exec->opt[0][0] == '.' && exec->opt[0][1] == '/'))
 		minishell_exec(sh->env, exec->opt);
 	else if (ft_get_path(sh->env, exec->opt[0]) != NULL)
 	{

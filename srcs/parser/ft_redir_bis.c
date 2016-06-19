@@ -12,13 +12,27 @@
 
 #include <shell.h>
 
-void		ft_exec_redirection_bis(t_cmd *cmd)
+void	ft_exec_redirection_bis(t_cmd *cmd)
 {
 	t_redirection		*rcmd;
 	int					new_fd;
 
 	rcmd = (t_redirection*)cmd;
 	new_fd = rcmd->mode;
+	printf("new_fd - %d -- rcmd->fd - %d\n", new_fd, rcmd->fd);
 	dup2(new_fd, rcmd->fd);
+	printf("dup2(%d)\n", dup2(new_fd, rcmd->fd));
 	ft_exec_cmd(rcmd->cmd);
+}
+
+t_cmd	*ft_parse_redir_error_bis(char *str)
+{
+	t_sh	*sh;
+
+	sh = ft_sh();
+	sh->prompt->type = 1;
+	if (ft_chkrdir_err(str) == 3)
+		return (ft_build_redirection(ft_cut_begin(str, '1'), NULL, 2, 1));
+	else
+		return (ft_build_redirection(ft_cut_begin(str, '2'), NULL, 1, 2));
 }

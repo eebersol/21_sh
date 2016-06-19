@@ -55,13 +55,13 @@ void			ft_exec_heredoc(t_cmd *cmd)
 void			ft_exec_redirection(t_cmd *cmd)
 {
 	t_redirection		*rcmd;
+	t_sh				*sh;
 	int					new_fd;
 	int					old_fd;
-	t_sh 				*sh;
 
-	sh = ft_sh();
 	rcmd = (t_redirection*)cmd;
-	if ( sh->prompt->type == 1)
+	sh = ft_sh();
+	if (sh->prompt->type == 1)
 		ft_exec_redirection_bis(cmd);
 	else
 	{

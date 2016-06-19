@@ -26,7 +26,7 @@ void	ft_history_to_lchar(char *str)
 	j = 0;
 	while (i < ft_strlen(str))
 	{
-		dst = ft_strnew(1);
+		dst = ft_strnew(ft_strlen(str));
 		dst[j] = str[i];
 		ft_lstadd(&prompt->l_char,
 			ft_lstnew(dst, (sizeof(char*) * ft_strlen(dst))));

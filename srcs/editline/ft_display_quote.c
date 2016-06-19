@@ -78,18 +78,17 @@ char	*ft_cut_parenth(char *str)
 	size_t	j;
 	char	*new_str;
 
-	new_str = ft_strnew(1);
+	new_str = ft_strnew(ft_strlen(str));
 	j = 0;
 	k = 0;
 	while (j < ft_strlen(str))
 	{
-		if (str[j] != '(' && str[j] != ')')
+		if (str[j] != '(' && str[j] != ')' && str[j] != '{' && str[j] != '}')
 		{
 			new_str[k] = str[j];
 			k++;
 		}
 		j++;
 	}
-	new_str[k] = '\0';
 	return (new_str);
 }

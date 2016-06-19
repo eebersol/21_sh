@@ -16,7 +16,7 @@ int		ft_chkrdir(char *s1)
 {
 	size_t	j;
 
-	j = 0;
+	j = 1;
 	while (j < ft_strlen(s1))
 	{
 		if (s1[j - 1] != '2' && s1[j] == '>' && s1[j + 1] == '>')
@@ -40,7 +40,7 @@ int		ft_chkrdir_err(char *s1)
 {
 	size_t	j;
 
-	j = 0;
+	j = 1;
 	while (j < ft_strlen(s1))
 	{
 		if (s1[j - 1] == '2' && s1[j] == '>' && s1[j + 1] != '>'
@@ -63,7 +63,7 @@ int		ft_chkrdir_close(char *s1)
 {
 	size_t	j;
 
-	j = 0;
+	j = 1;
 	while (j < ft_strlen(s1))
 	{
 		if (s1[j] == '2' && s1[j + 1] == '>' && s1[j + 2] == '&'

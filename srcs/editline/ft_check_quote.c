@@ -44,9 +44,9 @@ int		ft_check_quote(t_sh *sh)
 			quote.simple_quote++;
 		else if (c == '`')
 			quote.black_quote++;
-		else if (c == '(')
+		else if (c == '(' || c == '{')
 			quote.parenth_1++;
-		else if (c == ')')
+		else if (c == ')' || c == '}')
 			quote.parenth_2++;
 		cur = cur->next;
 	}

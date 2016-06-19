@@ -42,6 +42,7 @@ static	void	ft_first_move_top(t_prompt *prompt, t_list *list)
 	ft_lstdel(&prompt->l_char, &ft_free_node);
 	ft_history_to_lchar((char*)list->content);
 	prompt->index = prompt->x;
+	prompt->index_history--;
 }
 
 void			ft_move_top(void)

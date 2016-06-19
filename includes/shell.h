@@ -102,8 +102,8 @@ typedef	struct			s_prompt
 	char				*str_cpy;
 	int					error_quote;
 	int					x_copy;
+	int					type;
 	t_list				*l_copy;
-	int 				type;
 }						t_prompt;
 
 typedef struct			s_env

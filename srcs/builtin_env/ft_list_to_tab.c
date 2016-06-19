@@ -21,7 +21,7 @@ char	**ft_list_to_tab(t_list **list)
 
 	cur = *list;
 	i = 0;
-	tab_env = (char**)malloc(sizeof(char*) * ft_lstlen(*list) + 1);
+	tab_env = (char**)malloc(sizeof(char*) * (ft_lstlen(*list) + 1));
 	while (cur)
 	{
 		env = cur->content;
