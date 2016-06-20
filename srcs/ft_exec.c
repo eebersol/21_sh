@@ -44,8 +44,6 @@ int		ft_exec(char **cmd, char **env)
 	{
 		if ((execve(cmd[0], cmd, env)) != -1)
 			flag = -1;
-		else
-			exit(0);
 		flag = 1;
 	}
 	wait(&status);

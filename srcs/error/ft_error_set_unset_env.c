@@ -33,6 +33,5 @@ int		ft_error_set_unset_env(char **cmd, char *name)
 		ft_putendl_fd(" contain alphanumeric characters.", 2);
 		return (-1);
 	}
-	printf("ls\n");
 	return (0);
 }

@@ -89,7 +89,7 @@ SRC				= $(addprefix srcs/,$(_SRC))
 
 OBJ				= $(SRC:.c=.o)
 
-CFLAGS			= -Wall -Wextra -Werror -g
+CFLAGS			= -Wall -Wextra -Werror -g -v
 
 all: $(NAME)
 

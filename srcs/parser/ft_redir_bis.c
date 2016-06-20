@@ -19,9 +19,7 @@ void	ft_exec_redirection_bis(t_cmd *cmd)
 
 	rcmd = (t_redirection*)cmd;
 	new_fd = rcmd->mode;
-	printf("new_fd - %d -- rcmd->fd - %d\n", new_fd, rcmd->fd);
 	dup2(new_fd, rcmd->fd);
-	printf("dup2(%d)\n", dup2(new_fd, rcmd->fd));
 	ft_exec_cmd(rcmd->cmd);
 }
 

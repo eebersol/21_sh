@@ -32,6 +32,6 @@ char	**ft_list_to_tab(t_list **list)
 		i++;
 		cur = cur->next;
 	}
-	tab_env[i] = "\0";
+	tab_env[i] = NULL;
 	return (tab_env);
 }
