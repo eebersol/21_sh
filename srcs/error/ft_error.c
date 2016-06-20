@@ -53,3 +53,10 @@ int		ft_error_bonus(char **cmd)
 	}
 	return (0);
 }
+
+void	ft_error_no_file(char *str)
+{
+	ft_putstr_fd("21sh : no such file or directory: ", 2);
+	ft_putendl_fd(str, 2);
+	return ;
+}

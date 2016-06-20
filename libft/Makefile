@@ -99,7 +99,7 @@ SRCS 	= $(addprefix srcs/,$(_SRCS))
 
 SRCS_O   = $(subst .c,.o,$(_SRCS))
 
-CFLAGS 	= -Wall -Wextra -Werror -c -g
+CFLAGS 	= -Wall -Wextra -Werror -c
 
 CC 		= gcc $(CFLAGS)
 

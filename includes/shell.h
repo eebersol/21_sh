@@ -50,10 +50,10 @@
 # define A_C (b[0] == -61 && b[1] == -89 && b[2] == 0)
 # define A_V (b[0] == -30 && b[1] == -120 && b[2] == -102)
 # define A_X (b[0] == -30 && b[1] == -119 && b[2] == -120 && b[3] == 0)
-# define CNTRL_D (b[0] == 4 && b[1] == 0 && b[2] == 0 && b[3] == 0)
 # define ALT_UP (b[0] == 27 && b[1] == 27 && b[2] == 91 && b[3] == 65)
 # define ALT_BOT (b[0] == 27 && b[1] == 27 && b[2] == 91 && b[3] == 66)
 # define TAB (b[0] == 9 && b[1] == 0 && b[2] == 0 && b[3] == 0)
+# define CNTRL_D (b[0] == 4 && b[1] == 0 && b[2] == 0 && b[3] == 0)
 
 typedef struct termios	t_termios;
 typedef struct winsize	t_winsize;
@@ -146,6 +146,7 @@ int						ft_error_env(char **cmd);
 int						ft_error_exit(char **cmd);
 int						ft_error_set_unset_env(char **cmd, char *name);
 int						ft_error_bonus(char **cmd);
+void					ft_error_no_file(char *str);
 /*
 ** PROMPT
 */
@@ -168,6 +169,7 @@ int						ft_reset_prompt(void);
 void					ft_add_char(char *b);
 void					ft_list_history(void);
 void					ft_seek_to_history(char **cmd);
+void					ft_helper(char *str);
 /*
 ** quote
 */

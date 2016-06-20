@@ -56,7 +56,7 @@ void			ft_exec_redirection(t_cmd *cmd)
 {
 	t_redirection		*rcmd;
 	t_sh				*sh;
-	int					new_fd;
+	int					n_fd;
 	int					old_fd;
 
 	rcmd = (t_redirection*)cmd;
@@ -66,12 +66,15 @@ void			ft_exec_redirection(t_cmd *cmd)
 	else
 	{
 		if (rcmd->file == NULL)
-			new_fd = rcmd->mode;
-		else
-			new_fd = open(rcmd->file, rcmd->mode, S_IRUSR | S_IWUSR);
+			n_fd = rcmd->mode;
+		else if ((n_fd = open(rcmd->file, rcmd->mode, S_IRUSR | S_IWUSR)) == -1)
+		{
+			ft_error_no_file(rcmd->file);
+			return ;
+		}
 		old_fd = dup(rcmd->fd);
-		dup2(new_fd, rcmd->fd);
-		close(new_fd);
+		dup2(n_fd, rcmd->fd);
+		close(n_fd);
 		ft_exec_cmd(rcmd->cmd);
 		dup2(old_fd, rcmd->fd);
 	}

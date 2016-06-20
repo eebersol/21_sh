@@ -35,10 +35,10 @@ int			shell(t_sh *sh)
 {
 	t_prompt	*prompt;
 
+	ft_term_init(sh);
 	ft_init_winsize();
 	ft_check_signal();
 	ft_display_prompt(sh->env);
-	ft_term_init(sh);
 	while (42)
 	{
 		ft_init_prompt();

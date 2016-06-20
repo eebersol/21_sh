@@ -33,7 +33,7 @@ t_cmd	*ft_parse_redir_right(char *str)
 	{
 		if (ft_strlen((second_cmd = ft_cut_secondcmd(str, '<', 1))) == 0)
 			return (ft_build_error("21sh : parse error near `\\n'"));
-		return (ft_build_redirection(begin_cmd, second_cmd, M_READ_APPEND, 0));
+		return (ft_build_redirection(begin_cmd, second_cmd, M_READ, 0));
 	}
 	else
 	{

@@ -46,6 +46,7 @@ _SRC			= twenty_one_sh.c \
 					editline/ft_multi_line.c \
 					editline/ft_copy_paste.c \
 					editline/ft_bonus_history.c \
+					editline/ft_bonus_helper.c  \
 					utils/ft_lstlen.c \
 					utils/ft_get_path.c \
 					utils/ft_cut_title.c \
@@ -89,7 +90,7 @@ SRC				= $(addprefix srcs/,$(_SRC))
 
 OBJ				= $(SRC:.c=.o)
 
-CFLAGS			= -Wall -Wextra -Werror -g -v
+CFLAGS			= -Wall -Wextra -Werror
 
 all: $(NAME)
 
